@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мастер-Кошелёк × Суши Мастер — Customer Journey Map</title>
+<meta name="description" content="Интерактивный клиентский путь кошелька Мастер-Кошелёк для Суши Мастера">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23E01F26'/><g fill='none' stroke='%230A0A0A' stroke-width='2.6' stroke-linejoin='round'><path d='M20 24 L34 18 L44 22 L30 28 Z'/><path d='M20 24 L20 28 L30 32 L30 28 Z'/><path d='M30 28 L30 32 L44 26 L44 22 Z'/><path d='M20 31 L34 25 L44 29 L30 35 Z'/><path d='M20 31 L20 35 L30 39 L30 35 Z'/><path d='M30 35 L30 39 L44 33 L44 29 Z'/><path d='M20 38 L34 32 L44 36 L30 42 Z'/><path d='M20 38 L20 42 L30 46 L30 42 Z'/><path d='M30 42 L30 46 L44 40 L44 36 Z'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --bg-warm:#FAFAF6; --surface-1:#F5F5F1; --surface-2:#EEEEE8; --surface-3:#E6E6DE;
+  --line-1:rgba(10,10,10,0.07); --line-2:rgba(10,10,10,0.12); --line-3:rgba(10,10,10,0.20);
+  --ink-1:#0A0A0A; --ink-2:rgba(10,10,10,0.64); --ink-3:rgba(10,10,10,0.42); --ink-4:rgba(10,10,10,0.26);
+  --lime:#E01F26; --lime-deep:#B0161C; --lime-soft:#FCE0E1; --lime-card:#F0A0A3; --lime-glow:rgba(224,31,38,0.45);
+  --phone-bg:#FFFFFF; --phone-surf:#F5F5F2; --phone-text-1:#0A0A0A; --phone-text-2:#8A8A86; --phone-text-3:#B6B6B0; --phone-line-1:#ECECE7;
+  --font-body:'Onest',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --radius-sm:8px; --radius:12px; --radius-lg:20px; --radius-xl:28px;
+  --ease-silky:cubic-bezier(0.16,1,0.3,1); --ease-swift:cubic-bezier(0.4,0,0.2,1);
+  --ng-bg:#0A0A0A; --ng-on:#FFFFFF; --ng-on-2:rgba(255,255,255,0.66); --ng-on-3:rgba(255,255,255,0.40); --ng-line:rgba(255,255,255,0.12); --ng-surf:rgba(255,255,255,0.045); --ng-surf-2:rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink-1)}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-feature-settings:"ss01","cv01";-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:hidden}
+button{font-family:inherit;border:none;background:none;color:inherit;cursor:pointer;letter-spacing:inherit}
+button:focus{outline:none}
+button:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px;border-radius:4px}
+::selection{background:var(--lime);color:#fff}
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(10,10,10,0.12);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(10,10,10,0.22)}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.mono{font-family:var(--font-mono);font-feature-settings:"tnum"}
+.mesh-base{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60vw 60vw at 88% -8%, rgba(224,31,38,0.16), transparent 55%),radial-gradient(50vw 50vw at -8% 18%, rgba(224,31,38,0.10), transparent 60%),radial-gradient(70vw 45vw at 50% 112%, rgba(224,31,38,0.08), transparent 55%)}
+.mesh-orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:0.5}
+.mesh-orb.a{width:460px;height:460px;top:-140px;right:-80px;background:radial-gradient(circle, rgba(224,31,38,0.6) 0%, rgba(224,31,38,0) 70%);animation:orbA 20s ease-in-out infinite alternate}
+.mesh-orb.b{width:380px;height:380px;top:34vh;left:-150px;background:radial-gradient(circle, rgba(224,31,38,0.4) 0%, rgba(224,31,38,0) 70%);animation:orbB 24s ease-in-out infinite alternate}
+@keyframes orbA{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-70px,50px) scale(1.12)}}
+@keyframes orbB{0%{transform:translate(0,0) scale(1)}100%{transform:translate(100px,-30px) scale(0.92)}}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.spotlight{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(300px 300px at var(--mx,50%) var(--my,30%), rgba(224,31,38,0.10), transparent 70%);transition:background 80ms linear}
+#root{position:relative;z-index:2}
+.eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:var(--ink-3);display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:24px;height:3px;background:var(--lime);border-radius:1px}
+.eyebrow.no-mark::before{display:none}
+.dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--ink-4);vertical-align:middle}
+.mark-hl{position:relative;display:inline-block}
+.mark-hl>span{position:relative;z-index:1}
+.mark-hl::after{content:"";position:absolute;left:-0.04em;right:-0.04em;bottom:0.1em;height:0.36em;background:var(--lime);z-index:0;border-radius:2px}
+.phone-screen{background:var(--phone-bg);color:var(--phone-text-1);height:100%;display:flex;flex-direction:column}
+.phone-status{padding:6px 16px 8px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:600;color:var(--phone-text-1)}
+.phone-titlebar{padding:4px 14px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--phone-line-1)}
+.mobile-step-nav{display:none}
+.ng-work{display:grid;grid-template-columns:auto minmax(0,1fr);gap:56px;align-items:center}
+.ng-extra-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-2)}
+.ng-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+@media (max-width:960px){
+  .mobile-step-nav{display:inline-flex;align-items:center;gap:14px;padding:6px 6px;background:var(--bg);border:1px solid var(--line-2);border-radius:99px;box-shadow:0 8px 30px rgba(0,0,0,0.10)}
+  .mobile-step-nav button{width:40px;height:40px;border-radius:50%;border:none;background:var(--surface-1);color:var(--ink-1);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,color .2s ease,transform .15s ease;-webkit-tap-highlight-color:transparent}
+  .mobile-step-nav button:not(:disabled):active{transform:scale(0.94)}
+  .mobile-step-nav button:not(:disabled):hover{background:var(--ink-1);color:#fff}
+  .mobile-step-nav button:disabled{opacity:.3;cursor:default}
+  .mobile-step-nav .counter{font-size:14px;color:var(--ink-2);font-weight:600;letter-spacing:0.02em;min-width:60px;text-align:center}
+}
+@media (max-width:1100px){.hero-grid{grid-template-columns:1fr !important;gap:28px !important;align-items:start !important}}
+@media (max-width:960px){
+  .work-grid{grid-template-columns:1fr !important;gap:48px !important}
+  .work-grid>*:first-child{display:flex;justify-content:center}
+  .bento-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  .bento-grid>.b-large{grid-column:span 2 !important;grid-row:span 1 !important}
+}
+@media (max-width:720px){
+  .hero{padding:72px 20px 40px !important}
+  .section{padding-left:20px !important;padding-right:20px !important}
+  .step-rail{display:flex !important;grid-template-columns:none !important;gap:10px !important;overflow-x:auto;padding-bottom:10px !important;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+  .step-rail-item{flex:0 0 140px !important;min-width:140px !important;scroll-snap-align:start}
+  .metrics-grid{grid-template-columns:1fr !important}
+  .metrics-grid>.m-r{padding-left:0 !important;padding-top:24px !important;border-left:none !important;border-top:1px solid var(--line-2) !important}
+  .bento-grid{grid-template-columns:1fr !important}
+  .bento-grid>.b-large{grid-column:span 1 !important}
+  h1.display{font-size:52px !important;letter-spacing:-0.04em !important}
+}
+@media (max-width:960px){
+  .ng-work{grid-template-columns:1fr !important;gap:40px !important}
+  .ng-work>*:first-child{display:flex;justify-content:center}
+  .ng-extra-grid{grid-template-columns:1fr !important}
+  .ng-metrics{grid-template-columns:1fr !important}
+}
+@media (max-width:720px){
+  .ng{padding:64px 20px !important}
+  .ng-pills{overflow-x:auto;flex-wrap:nowrap !important;-webkit-overflow-scrolling:touch}
+  .ng-pills::-webkit-scrollbar{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@11.18.2/dist/framer-motion.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#FFFFFF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FFFFFF"/>
+    <text x="120" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="92" letter-spacing="-3">Суши-</text>
+    <rect x="118" y="300" width="470" height="118" rx="10" fill="#E01F26" opacity="0"/>
+    <text x="120" y="392" fill="#0A0A0A" font-family="system-ui" font-weight="800" font-size="92" letter-spacing="-3">Суши-<tspan fill="#E01F26">Кошелёк</tspan></text>
+    <text x="122" y="470" fill="rgba(10,10,10,0.45)" font-family="system-ui" font-size="26">× Суши Мастер · Customer Journey Map</text>
+  </svg>
+</template>
+<div class="mesh-base"></div>
+<div class="mesh-orb a"></div>
+<div class="mesh-orb b"></div>
+<div class="grain"></div>
+<div class="spotlight" id="spotlight"></div>
+<div id="root"></div>
+<script type="text/babel" data-presets="env,react">
+const { useState, useEffect, useRef } = React;
+const { motion, AnimatePresence, useTransform, useSpring, useMotionValue, useInView, LayoutGroup } = window.Motion;
+
+const SPRING = { silky:{type:"spring",stiffness:120,damping:22,mass:0.8}, snappy:{type:"spring",stiffness:380,damping:32} };
+const EASE = [0.16, 1, 0.3, 1];
+
+/* ===== BRAND MARK ===== */
+
+function BrandLogo({height=22, color="#E01F26"}){
+  return (
+    <svg height={height} viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" style={{display:"block",flexShrink:0}}>
+      <g transform="translate(2,4)">
+        <circle cx="18" cy="18" r="18" fill={color}/>
+        <circle cx="18" cy="18" r="7.5" fill="#fff"/>
+        <circle cx="18" cy="18" r="3.4" fill={color}/>
+        <path d="M9 25 L27 11" stroke="#fff" strokeWidth="2.1" strokeLinecap="round"/>
+        <path d="M12 27 L30 13" stroke="#fff" strokeWidth="2.1" strokeLinecap="round"/>
+      </g>
+      <text x="48" y="29" fontFamily="Onest, sans-serif" fontSize="22" fontWeight="700" fill={color} letterSpacing="-0.015em">суши мастер</text>
+    </svg>
+  );
+}
+
+function GAMark({size=22, bg="#E01F26", ink="#FFFFFF", flat=false, radius=14}){
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" style={{display:"block",flexShrink:0}}>
+      {!flat && <rect width="64" height="64" rx={radius} fill={bg}/>}
+      <path d="M16 20h8v24h-8zM28 20h20l-10 12 10 12H28z" fill={ink}/>
+    </svg>
+  );
+}
+function QRish({size=120, color="#0A0A0A", bg="transparent"}){
+  const n=21, cell=size/n, mods=[];
+  const inFinder=(r,c)=>{const f=(R,C)=>r>=R&&r<R+7&&c>=C&&c<C+7;return f(0,0)||f(0,n-7)||f(n-7,0);};
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++){ if(inFinder(r,c))continue; if(((r*5+c*3+r*c+r)%4)===0) mods.push([r,c]); }
+  const finder=(R,C,k)=>(
+    <g key={k}>
+      <rect x={C*cell} y={R*cell} width={7*cell} height={7*cell} fill={color}/>
+      <rect x={(C+1)*cell} y={(R+1)*cell} width={5*cell} height={5*cell} fill={bg==="transparent"?"#fff":bg}/>
+      <rect x={(C+2)*cell} y={(R+2)*cell} width={3*cell} height={3*cell} fill={color}/>
+    </g>
+  );
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} shapeRendering="crispEdges" style={{display:"block"}}>
+      {bg!=="transparent" && <rect width={size} height={size} fill={bg}/>}
+      {mods.map(([r,c],i)=><rect key={i} x={c*cell} y={r*cell} width={cell} height={cell} fill={color}/>)}
+      {finder(0,0,"a")}{finder(0,n-7,"b")}{finder(n-7,0,"c")}
+    </svg>
+  );
+}
+
+/* ===== JOURNEY DATA ===== */
+const journeys=[
+{id:"new",group:"journey",label:"Новый клиент",desc:"Выпуск кошелька Мастер-Кошелёк · пополнение · оплата",steps:[
+  {title:"Точка входа",zone:"Суши Мастер",screen:"ga_checkout",desc:"Клиент или новый партнёр оформляет заказ в приложении Суши Мастер — заказ роллов, суши или сетов. На чек-ауте — оффер «Кэшбэк баллами с Мастер-Кошелёк».",metricPartner:"Рост конверсии чек-аута: бонусный оффер на покупке и активации",metricBank:"Присутствие Мастер-Кошелёк в пути клиента и партнёра"},
+  {title:"Оффер + согласия",zone:"Суши Мастер → Банк",screen:"offer_consents",desc:"Экран оффера: баллы за покупки + моментальные выплаты партнёрам на кошелёк. Согласие на передачу реквизитов и банковской тайны.",metricPartner:"Бонусы клиенту за счёт экономии на эквайринге. Партнёрам — выплаты без комиссий банка",metricBank:"Подключение к Мастер-Кошельку прямо в канале партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и СМС-кода. Идентификация во встроенном WebView — полностью в контуре приложения Суши Мастер.",metricPartner:"Идентификация за секунды — клиент не покидает приложение",metricBank:"Идентификация без визита в отделение"},
+  {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"ФИО и дата рождения. Поля предзаполнены из профиля Суши Мастер — клиенту не нужно вводить вручную.",metricPartner:"Заявка занимает меньше минуты — данные из профиля Суши Мастер",metricBank:"Выпуск кошелька без отделения и курьера"},
+  {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Моментальный выпуск Мастер-Кошельку. Без пластика. Для партнёра — счёт сразу готов к приёму выплат.",metricPartner:"Клиент готов к оплате · партнёр готов к получению выплат",metricBank:"Моментальный выпуск кошелька Мастер-Кошелёк"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение Мастер-Кошелёк с карты другого банка (C2B). Достаточно суммы заказа.",metricPartner:"Оплата здесь же — клиент или партнёр не уходит с чек-аута",metricBank:"Рост остатков на Мастер-Кошельках"},
+  {title:"Привязка к Мастер-Кошельку",zone:"Банк → Суши Мастер",screen:"bind",desc:"Реквизиты Мастер-Кошелёк автоматически передаются в Суши Мастер. Кошелёк появляется как способ оплаты — без ручного ввода.",metricPartner:"Привязка автоматическая — без ручного ввода реквизитов",metricBank:"Мастер-Кошелёк закрепляется как способ оплаты у партнёра"},
+  {title:"Оплата на чек-ауте",zone:"Суши Мастер",screen:"pay_bonus",desc:"Клиент платит Мастер-Кошелёк. +100 баллов кэшбэка начислено. Партнёр получает выплаты прямо на кошелёк.",metricPartner:"Баллы за покупки + моментальные выплаты партнёрам — две механики в одном кошельке",metricBank:"Активный кошелёк — начало транзакционной активности"},
+]},
+{id:"existing",group:"journey",label:"Действующий клиент",desc:"Подключение кошелька · выбор карты · оплата",steps:[
+  {title:"Точка входа",zone:"Суши Мастер",screen:"ga_checkout",desc:"На чек-ауте Суши Мастер — оффер «Кэшбэк + выплаты на Мастер-Кошелёк». Клиент уже клиент Альфа-Банка.",metricPartner:"Готовая база клиентов Альфа-Банка — простое подключение Мастер-Кошелёк",metricBank:"Рост активности клиентов через новый канал"},
+  {title:"Оффер + согласия",zone:"Суши Мастер → Банк",screen:"offer_consents",desc:"Оффер баллами и выплатами + согласие на передачу реквизитов и банковской тайны.",metricPartner:"Оплата Мастер-Кошельком выгоднее для Суши Мастера, чем сторонние способы оплаты на чек-ауте",metricBank:"Рост доли Мастер-Кошелёк в платёжном миксе партнёра"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. Реализация — во встроенном WebView либо нативно в приложении Суши Мастер.",metricPartner:"Быстрая привязка — клиент остаётся в приложении Суши Мастер",metricBank:"Связка «клиент банка — клиент партнёра» для аналитики"},
+  {title:"Выбор карты",zone:"Банк",screen:"select_card",desc:"Клиент выбирает любую активную карту Альфа-Банка или выпускает новую. WebView в контуре Суши Мастер.",metricPartner:"Автоматическая привязка карты — без ручного ввода реквизитов",metricBank:"Данные о предпочтительной карте клиента у партнёра"},
+  {title:"Кошелёк подключён",zone:"Банк",screen:"wallet_ready",desc:"Мастер-Кошелёк подключён к выбранной карте Альфа-Банка в один шаг.",metricPartner:"Кошелёк подключён к карте клиента в один шаг",metricBank:"Готовый к оплате Мастер-Кошельком"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_me2me",desc:"Если на карте недостаточно средств — пополнение между своими счетами (me2me) прямо в процессе.",metricPartner:"Клиент пополняет кошелёк при нехватке средств — не уходит с чек-аута",metricBank:"Консолидация остатков клиента в Мастер-Кошельке"},
+  {title:"Оплата на чек-ауте",zone:"Суши Мастер",screen:"pay_bonus",desc:"Клиент платит Мастер-Кошелёк. Баллы за покупки + если партнёр — выплаты приходят на тот же кошелёк.",metricPartner:"Совместная лояльность повышает частоту повторных покупок",metricBank:"Рост оборота по эквайрингу через канал партнёра"},
+]},
+{id:"no_card",group:"journey",label:"Без активной карты",desc:"Идентификация · выпуск кошелька · оплата",steps:[
+  {title:"Точка входа",zone:"Суши Мастер",screen:"ga_checkout",desc:"Информер о повышенных бонусах и моментальных выплатах при оплате Мастер-Кошельком. Новый партнёр без активной карты Альфа-Банка.",metricPartner:"Активация новых партнёров без карт через канал Суши Мастера",metricBank:"Повторная активация клиента без затрат на ремаркетинг"},
+  {title:"Оффер + согласия",zone:"Суши Мастер → Банк",screen:"offer_consents",desc:"Оффер + согласия. Банк определяет клиента по ID клиента в Банке — действующий клиент без активного кошелька.",metricPartner:"Лояльный клиент с банковской историей",metricBank:"Идентификация по ID клиента в Банке — без полной анкеты"},
+  {title:"Идентификация клиента",zone:"Банк",screen:"identify",desc:"Ввод номера телефона и кода из СМС. WebView либо нативная реализация в приложении Суши Мастер.",metricPartner:"Идентификация за секунды в приложении Суши Мастер",metricBank:"Быстрая идентификация действующего клиента"},
+  {title:"Предложение открыть кошелёк",zone:"Банк",screen:"upsell",desc:"«Откройте бесплатный Мастер-Кошелёк — кэшбэк за покупки и моментальные выплаты партнёрам». Выпуск без пластика.",metricPartner:"Бонусы привязаны к новому кошельку — мотивация к покупке",metricBank:"Конверсия в выпуск кошелька выше прямых каналов"},
+  {title:"Анкета на открытие",zone:"Банк",screen:"form",desc:"Заполнение анкеты для выпуска кошелька. ФИО предзаполнены из данных банка.",metricPartner:"Простая заявка — поля предзаполнены из данных банка",metricBank:"Полноценный кошелёк с потенциалом кросс-продаж"},
+  {title:"Кошелёк выпущен",zone:"Банк",screen:"issued",desc:"Выпуск Мастер-Кошельку. Партнёр сразу готов получать выплаты и оплачивать покупки.",metricPartner:"Клиент платит кошельком Мастер-Кошелёк сразу после выпуска",metricBank:"Активация кошелька в день выпуска"},
+  {title:"Пополнение кошелька",zone:"Банк",screen:"topup_c2b",desc:"Пополнение кошелька с карты другого банка (C2B). Сумма заказа доступна для оплаты здесь же.",metricPartner:"Сумма заказа доступна для оплаты здесь же",metricBank:"Рост остатков на Мастер-Кошельках"},
+  {title:"Заказ пластика",zone:"Банк",screen:"delivery",desc:"Заказ пластика курьером Альфа-Банка. После активации — автопривязка к Мастер-Кошельку.",metricPartner:"Пластик с привязкой к Мастер-Кошельку",metricBank:"Долгосрочная активация клиента"},
+  {title:"Привязка и оплата",zone:"Суши Мастер",screen:"pay_bonus",desc:"После активации кошелька — автоматическая передача реквизитов и привязка к способу оплаты Мастер-Кошелёк. Оплата с начислением баллов.",metricPartner:"Регулярные покупки с начислением баллов",metricBank:"Активный клиент с кошельком и транзакционной историей"},
+]},
+{id:"payment",group:"capability",label:"Оплата кошельком",desc:"Оплата Мастер-Кошелёк в онлайне и офлайне",variants:{
+  online:[
+    {title:"Клиент выбрал товар",zone:"Суши Мастер · online",screen:"shop_product",desc:"Клиент выбирает товар в каталоге Суши Мастер. Подсвечивается выгода оплаты через Мастер-Кошелёк: +100 баллов кэшбэка.",metricPartner:"Выгода Мастер-Кошелёк видна уже в карточке товара",metricBank:"Узнаваемость Мастер-Кошелёк в каталоге партнёра"},
+    {title:"Добавил в корзину",zone:"Суши Мастер · online",screen:"cart",desc:"Товар в корзине. Баннер «Скидка + баллы при оплате Мастер-Кошельком» рядом с итоговой суммой.",metricPartner:"Бонусный баннер в корзине — стимул завершить заказ",metricBank:"Напоминание о Мастер-Кошелёк в корзине"},
+    {title:"Перешёл в оформление",zone:"Суши Мастер · online",screen:"checkout_methods",desc:"Оформление заказа, выбор способа оплаты среди СБП, SberPay, Яндекс Пэй и Мастер-Кошелёк.",metricPartner:"Мастер-Кошелёк — в списке способов оплаты",metricBank:"Присутствие среди привычных способов оплаты"},
+    {title:"Мастер-Кошелёк предустановлен",zone:"Суши Мастер · online",screen:"method_selected",desc:"Мастер-Кошелёк выбран способом оплаты по умолчанию — клиенту не нужно искать его в списке.",metricPartner:"Предустановленный способ оплаты ускоряет чек-аут",metricBank:"Приоритет Мастер-Кошелёк по умолчанию"},
+    {title:"Оплатил Мастер-Кошелёк",zone:"Суши Мастер · online",screen:"paid",desc:"Оплата прошла в один тап. +100 баллов начислено на счёт лояльности.",metricPartner:"Оплата в один тап, бонусы начислены",metricBank:"Завершённая транзакция по Мастер-Кошелёк"},
+  ],
+  offline:[
+    {title:"Карта лояльности",zone:"Суши Мастер · offline",screen:"qr_loyalty",desc:"Клиент в точке Суши Мастер открывает Мастер-Кошелёк с QR-кодом для оплаты.",metricPartner:"Оплата без наличных в точке Суши Мастер",metricBank:"Единый QR для оплаты и лояльности"},
+    {title:"Кассир считывает QR",zone:"Точка · offline",screen:"cashier",desc:"Оператор считывает QR — проходит оплата Мастер-Кошелёк и начисление баллов.",metricPartner:"Оплата и баллы — одним действием в точке Суши Мастер",metricBank:"Оплата Мастер-Кошелёк в офлайне"},
+    {title:"Готово",zone:"Суши Мастер · offline",screen:"offline_done",desc:"Покупка оплачена, баллы начислены — одним действием, без пластика.",metricPartner:"Быстрая оплата — клиент доволен",metricBank:"Бесшовный офлайн-сценарий Мастер-Кошелёк"},
+  ]
+}},
+{id:"manage",group:"capability",label:"Управление",desc:"Управление кошельком Мастер-Кошелёк в профиле клиента",steps:[
+  {title:"Доступ в профиле",zone:"Суши Мастер",screen:"profile_access",desc:"Мастер-Кошелёк доступен в профиле клиента и партнёра в приложении Суши Мастер — рядом с выплатами и историей покупок.",metricPartner:"Кошелёк всегда под рукой в приложении Суши Мастер",metricBank:"Регулярные заходы в Мастер-Кошелёк"},
+  {title:"Управление кошельком",zone:"Кошелёк",screen:"wallet_home",desc:"Баланс кошелька, баллы, история выплат партнёра и быстрые действия — на главном экране.",metricPartner:"Прозрачный баланс баллов, выплат и история операций",metricBank:"Вовлечённость в кошелёк"},
+  {title:"Пополнение / перевод",zone:"Кошелёк",screen:"wallet_topup",desc:"Пополнить со счёта в другом банке, со счёта в Альфа-Банке или настроить автопополнение.",metricPartner:"Пополнение в пару тапов — деньги готовы к покупке",metricBank:"Рост остатков на кошельке"},
+  {title:"Действия с картой",zone:"Кошелёк",screen:"wallet_actions",desc:"Изменить пин-код, заморозить или закрыть карту, посмотреть тарифы и условия, настроить автопополнение.",metricPartner:"Полное самообслуживание по карте",metricBank:"Снижение нагрузки на поддержку"},
+  {title:"Реквизиты",zone:"Кошелёк",screen:"wallet_requisites",desc:"Просмотр и копирование реквизитов карты — номер, срок, CVC под защитой.",metricPartner:"Реквизиты под рукой для любых платежей",metricBank:"Удобство использования кошелька"},
+]},
+{id:"installment",group:"capability",label:"Рассрочка",desc:"Оплата частями с Мастер-Кошелёк — 4 платежа без переплаты",steps:[
+  {title:"Оффер рассрочки",zone:"Суши Мастер",screen:"inst_offer",desc:"На крупном заказе (банкет, большой сет) — «Оплата частями с Мастер-Кошелёк»: 4 платежа без переплаты.",metricPartner:"Рассрочка снимает барьер старта — новые партнёры активируются сразу",metricBank:"Новый платёжный инструмент в канале партнёра"},
+  {title:"Выбор графика",zone:"Банк",screen:"inst_plan",desc:"Партнёр выбирает план: 4 платежа раз в две недели. Видна сумма каждого платежа.",metricPartner:"Прозрачный график — 4 платежа без переплаты",metricBank:"Понятные условия повышают конверсию"},
+  {title:"Согласие",zone:"Банк",screen:"inst_consent",desc:"Согласие на условия оплаты частями и график платежей.",metricPartner:"Согласие в один экран",metricBank:"Оформление без лишних шагов"},
+  {title:"Подтверждение",zone:"Банк",screen:"inst_confirm",desc:"Первый платёж сейчас, остальные — по графику. Без процентов. Погашение из еженедельных выплат.",metricPartner:"Первый платёж сейчас, остальное — позже",metricBank:"Рост среднего чека за счёт рассрочки"},
+  {title:"Оформлено",zone:"Суши Мастер",screen:"inst_done",desc:"Рассрочка оформлена. +100 баллов начислено. График платежей в кошельке.",metricPartner:"Бонусы начисляются и за рассрочку",metricBank:"Лояльность поверх рассрочки"},
+]},
+];
+const benefitsClient=[
+  {icon:"gift",title:"Баллы + скидка за оплату",desc:"Скидка + баллы при оплате Мастер-Кошельком и бонусы за каждый заказ — копятся в Суши Мастере",accent:"+100"},
+  {icon:"wallet",title:"Кошелёк без пластика",desc:"Мастер-Кошелёк выпускается моментально — платить можно сразу, без ожидания карты"},
+  {icon:"refresh",title:"Улучшенные сценарии оплаты",desc:"Онлайн и офлайн, рассрочка, единый QR лояльности и оплаты"},
+  {icon:"sparkle",title:"Моментальное пополнение",desc:"С карты другого банка или со счёта в Альфа-Банке — в пару тапов"},
+];
+const benefitsPartner=[
+  {icon:"trend",title:"Экономия на эквайринге",desc:"Оплата через Мастер-Кошелёк выгоднее для Суши Мастера, чем сторонние способы на чек-ауте",accent:"эквайринг"},
+  {icon:"users",title:"Новые клиенты",desc:"Готовая аудитория Альфа-Банка подключается прямо в канале Суши Мастера"},
+  {icon:"chart",title:"Частота заказов и средний чек",desc:"Совместная лояльность мотивирует возвращаться и заказывать больше"},
+  {icon:"sparkle",title:"Совместные предложения",desc:"Бонусы клиенту финансируются за счёт экономии на эквайринге — не из маржи партнёра"},
+];
+const benefitsBank=[
+  {icon:"refresh",title:"Рост транзакционного оборота",desc:"Розничный оборот по эквайрингу через канал Суши Мастера",accent:"РТО"},
+  {icon:"users",title:"Новые клиенты",desc:"Подключение клиентов к Мастер-Кошельку в покупательском пути партнёра"},
+  {icon:"savings",title:"Доход от остатков на счетах",desc:"Пополнение кошельков и рост балансов на счетах Альфа-Банка"},
+  {icon:"data",title:"Данные и кросс-продажи",desc:"Связка «клиент банка — покупатель партнёра» для новых продуктов"},
+];
+
+/* ===== ICONS ===== */
+const Ico=({d,size=22,stroke=1.6})=>(
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{d}</svg>
+);
+const ICONS={
+  savings:<><path d="M12 3v4M5 11h14M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8M5 11a4 4 0 014-4h6a4 4 0 014 4"/><circle cx="16" cy="15" r="1"/></>,
+  users:<><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 11a3 3 0 100-6M21.5 19a4.5 4.5 0 00-6-4.3"/></>,
+  chart:<><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></>,
+  refresh:<><path d="M3 12a9 9 0 0115.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 01-15.5 6.3L3 16M3 21v-5h5"/></>,
+  gift:<><path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v13M12 8s-4-5-7-3c-2 1.5-1 5 3 5h4zM12 8s4-5 7-3c2 1.5 1 5-3 5h-4z"/></>,
+  sparkle:<><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></>,
+  card:<><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6 15h4"/></>,
+  wallet:<><path d="M3 7a2 2 0 012-2h12a2 2 0 012 2M3 7v10a2 2 0 002 2h14a2 2 0 002-2v-6a2 2 0 00-2-2H5a2 2 0 01-2-2zM17 13h.01"/></>,
+  trend:<><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></>,
+  data:<><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></>,
+  arrow_r:<><path d="M5 12h14M13 5l7 7-7 7"/></>,
+  arrow_l:<><path d="M19 12H5M11 5l-7 7 7 7"/></>,
+  restart:<><path d="M3 12a9 9 0 109-9 9 9 0 00-7 3.5M3 3v4h4"/></>,
+};
+
+/* ===== HOOKS ===== */
+function useReveal(once=true, amount=0.2){
+  const ref = useRef(null);
+  const inView = useInView(ref, { once, amount });
+  return [ref, inView];
+}
+function useGlobalSpotlight(){
+  useEffect(()=>{
+    const el = document.getElementById('spotlight');
+    if(!el) return;
+    const onMove=(e)=>{ el.style.setProperty('--mx', e.clientX+'px'); el.style.setProperty('--my', e.clientY+'px'); };
+    window.addEventListener('mousemove', onMove);
+    return ()=>window.removeEventListener('mousemove', onMove);
+  },[]);
+}
+
+/* ===== PHONE PRIMITIVES ===== */
+const PRow = ({l,v,last,strong})=>(
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:last?"none":"1px solid var(--phone-line-1)",fontSize:12}}>
+    <span style={{color:"var(--phone-text-2)"}}>{l}</span>
+    <span className="num" style={{fontWeight:strong?700:600,color:"var(--phone-text-1)"}}>{v}</span>
+  </div>
+);
+const PBtn = (label,kind="dark")=>(
+  <div style={{
+    background: kind==="dark"?"var(--ink-1)":kind==="lime"?"var(--lime)":"#fff",
+    color: kind==="dark"?"#fff":"var(--ink-1)",
+    border: kind==="ghost"?"1px solid var(--phone-line-1)":"none",
+    borderRadius:11,padding:"12px 0",fontWeight:600,fontSize:13,textAlign:"center"
+  }}>{label}</div>
+);
+const Bonus = ({txt="Скидка + баллы при оплате Мастер-Кошельком"})=>(
+  <div style={{background:"var(--lime)",borderRadius:11,padding:"11px 12px",display:"flex",alignItems:"center",gap:9}}>
+    <div style={{width:22,height:22,borderRadius:6,background:"#fff",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:11,fontWeight:800,color:"var(--lime-deep)",letterSpacing:"-.02em"}}>С</div>
+    <div style={{fontSize:11.5,fontWeight:700,color:"#fff",lineHeight:1.25,letterSpacing:"-.01em"}}>{txt}</div>
+  </div>
+);
+const WalletCard = ({balance="0 ₽",num="•••• 4567",soft=false})=>(
+  <div style={{background:"linear-gradient(135deg, #E01F26, #B0161C)",borderRadius:14,padding:"13px 14px",position:"relative",overflow:"hidden"}}>
+    
+    <div style={{fontSize:9,opacity:.7,textTransform:"uppercase",letterSpacing:".1em",color:"#fff",fontWeight:700}}>Мастер-Кошелёк</div>
+    <div className="num" style={{fontSize:15,fontWeight:700,letterSpacing:"0.22em",marginTop:14,color:"#fff"}}>{num}</div>
+    <div className="num" style={{fontSize:11,marginTop:6,color:"#fff",opacity:.8,fontWeight:600}}>Баланс · {balance}</div>
+  </div>
+);
+const TickCircle = ()=>(
+  <div style={{width:46,height:46,background:"var(--lime)",borderRadius:"50%",margin:"0 auto 12px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    <svg width="20" height="20" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+  </div>
+);
+const PTitle = ({t,s})=>(
+  <React.Fragment>
+    <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.2}}>{t}</div>
+    {s&&<div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>{s}</div>}
+  </React.Fragment>
+);
+
+/* ===== SCREENS ===== */
+const SCREENS = {
+  ga_checkout:{title:"Чек-аут · Суши Мастер", render:()=>(
+    <div style={{padding:"14px 16px",display:"flex",flexDirection:"column",gap:11}}>
+      <div style={{display:"flex",alignItems:"center",gap:8}}>
+        <div style={{width:22,height:22,borderRadius:6,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <span style={{color:"#fff",fontWeight:800,fontSize:11}}>С</span>
+        </div>
+        <span style={{fontSize:11,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:".02em"}}>Суши Мастер</span>
+      </div>
+      <div style={{border:"1px solid var(--phone-line-1)",borderRadius:12,padding:"11px 13px"}}>
+        <div style={{fontSize:10,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Ваш заказ</div>
+        <div style={{fontSize:11,color:"var(--phone-text-1)",marginTop:5,fontWeight:500}}>Сет «Филадельфия» · 32 шт</div>
+        <div className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em",marginTop:4}}>3 850 ₽</div>
+      </div>
+      <Bonus/>
+      <div style={{marginTop:2}}>{PBtn("Оформить заказ","dark")}</div>
+    </div>
+  )},
+  offer_consents:{title:"Оффер + согласия", render:()=>(
+    <div style={{padding:"15px 16px"}}>
+      <BrandLogo height={28} color="#E01F26"/>
+      <div style={{fontSize:17,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.2,marginTop:11}}>Платите через Мастер-Кошелёк</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4,marginBottom:12}}>Подключите кошелёк и получайте баллы за каждую оплату</div>
+      {["Скидка + баллы за оплату","Бесплатно навсегда","Бонусы за каждую покупку"].map((t,i)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderTop:i===0?"1px solid var(--phone-line-1)":"none",borderBottom:"1px solid var(--phone-line-1)",fontSize:12,color:"var(--phone-text-1)",fontWeight:500}}>
+          <span style={{width:16,height:16,borderRadius:"50%",background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+            <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </span>{t}
+        </div>))}
+      <div style={{marginTop:13}}>{PBtn("Продолжить","dark")}</div>
+      <div style={{fontSize:8,color:"var(--phone-text-3)",marginTop:9,lineHeight:1.4}}>Нажимая «Продолжить», я даю согласие на передачу реквизитов и банковской тайны, подтверждаю Памятку ЭДС и СОПД</div>
+    </div>
+  )},
+  identify:{title:"Идентификация клиента", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Идентификация клиента" s="Введите номер — пришлём код из СМС"/>
+      <div style={{borderBottom:"1.5px solid var(--phone-text-1)",padding:"10px 0 8px",marginTop:14}}>
+        <div style={{fontSize:9,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Номер телефона</div>
+        <div className="num" style={{fontSize:18,fontWeight:600,color:"var(--phone-text-1)",letterSpacing:".02em",marginTop:2}}>+7 (999) 123-45-67</div>
+      </div>
+      <div style={{display:"flex",gap:7,justifyContent:"center",margin:"16px 0 6px"}}>
+        {[4,8,2,""].map((d,i)=>(
+          <div key={i} className="num" style={{width:40,height:48,background:"var(--phone-surf)",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:20,fontWeight:700,color:"var(--phone-text-1)",border:i===3?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)"}}>
+            {d}{i===3&&<span style={{opacity:.35,marginLeft:1}}>|</span>}</div>))}
+      </div>
+      <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",fontWeight:600,textAlign:"center",marginBottom:12}}>Код из СМС · повторно через 0:25</div>
+      {PBtn("Подтвердить","dark")}
+    </div>
+  )},
+  form:{title:"Анкета на открытие", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Заполните заявку"/>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:6,marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
+        <span>Шаг 1 из 2</span>
+        <div style={{flex:1,height:3,background:"var(--phone-line-1)",borderRadius:2,position:"relative"}}>
+          <div style={{position:"absolute",inset:0,width:"50%",background:"var(--lime)",borderRadius:2}}/></div>
+      </div>
+      {[{l:"Фамилия",v:"Купреев"},{l:"Имя",v:"Роман"},{l:"Отчество",v:"Александрович"},{l:"Дата рождения",v:"15.03.1990"}].map((f,i)=>(
+        <div key={i} style={{padding:"7px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <div style={{fontSize:9,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>{f.l}</div>
+          <div className="num" style={{fontSize:13,fontWeight:500,color:"var(--phone-text-1)",marginTop:1}}>{f.v}</div>
+        </div>))}
+      <div style={{fontSize:9,color:"var(--phone-text-3)",margin:"8px 0 12px"}}>Поля предзаполнены из данных партнёра</div>
+      {PBtn("Открыть кошелёк","dark")}
+    </div>
+  )},
+  issued:{title:"Кошелёк выпущен", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Кошелёк Мастер-Кошельку выпущен</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px",lineHeight:1.4}}>Пополните кошелёк и оплачивайте покупки с баллами</div>
+      <div style={{marginBottom:13,textAlign:"left"}}><WalletCard balance="0 ₽"/></div>
+      <div style={{display:"flex",gap:8}}>
+        <div style={{flex:1}}>{PBtn("Пополнить","dark")}</div>
+        <div style={{flex:1}}>{PBtn("Оплатить","lime")}</div>
+      </div>
+    </div>
+  )},
+  topup_c2b:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнение кошелька" s="С карты другого банка"/>
+      <div style={{marginTop:12,marginBottom:12}}><WalletCard balance="0 ₽" soft={true}/></div>
+      {[{l:"Сумма",v:"3 850 ₽"},{l:"Комиссия",v:"0 ₽"},{l:"Откуда",v:"Т-Банк ····8901"},{l:"Куда",v:"Мастер-Кошелёк ····4567",last:true}].map((r,i)=>(<PRow key={i} {...r}/>))}
+      <div style={{marginTop:14}}>{PBtn("Пополнить и оплатить","dark")}</div>
+    </div>
+  )},
+  bind:{title:"Привязка к Мастер-Кошельку", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="Мастер-Кошелёк привязан автоматически"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Мастер-Кошелёк",sel:true,tag:"ga"},{n:"СБП",sel:false},{n:"SberPay",sel:false},{n:"Яндекс Пэй",sel:false}].map((m,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,marginBottom:7,border:m.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:m.sel?"var(--phone-surf)":"#fff"}}>
+            {m.tag==="ga"?<div style={{width:22,height:22,borderRadius:6,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:11,fontWeight:800,color:"#fff"}}>С</div>:<div style={{width:22,height:22,borderRadius:6,background:"var(--phone-surf)",border:"1px solid var(--phone-line-1)"}}/>}
+            <span style={{flex:1,fontSize:13,fontWeight:m.sel?700:500,color:"var(--phone-text-1)"}}>{m.n}</span>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(m.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {m.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{marginTop:6}}>{PBtn("Продолжить","dark")}</div>
+    </div>
+  )},
+  pay_bonus:{title:"Оплата на чек-ауте", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Заказ оплачен</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата прошла через Мастер-Кошелёк</div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:8}}>
+        <PRow l="Сумма заказа" v="3 850 ₽"/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислено баллов</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",padding:"11px 0 0",alignItems:"baseline"}}>
+          <span style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Оплачено</span>
+          <span className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>3 850 ₽</span>
+        </div>
+      </div>
+    </div>
+  )},
+  select_card:{title:"Выбор карты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Выберите карту в кошельке" s="Или выпустите новую"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Карта Альфа-Банка",num:"····4567",bal:"15 200 ₽",sel:true},{n:"Карта Альфа-Банка",num:"····3456",bal:"1 100 ₽",sel:false}].map((c,i)=>(
+          <div key={i} style={{background:c.sel?"var(--phone-surf)":"#fff",border:c.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",borderRadius:11,padding:"10px 12px",marginBottom:8,display:"flex",alignItems:"center",gap:10}}>
+            <div style={{width:34,height:24,background:"var(--ink-1)",borderRadius:4,display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{width:9,height:9,borderRadius:2,background:"var(--lime)"}}/></div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>{c.n}</div>
+              <div className="num" style={{fontSize:10,color:"var(--phone-text-2)"}}>{c.num} · {c.bal}</div>
+            </div>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(c.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {c.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+        <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",borderRadius:11,border:"1px dashed var(--line-3)"}}>
+          <div style={{width:34,height:24,borderRadius:4,border:"1px dashed var(--line-3)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:"var(--phone-text-2)",fontWeight:300}}>+</div>
+          <span style={{flex:1,fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Выпустить новую карту</span>
+        </div>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("К оплате","dark")}</div>
+    </div>
+  )},
+  wallet_ready:{title:"Кошелёк подключён", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Мастер-Кошелёк подключён</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px",lineHeight:1.4}}>Кошелёк привязан к выбранной карте Альфа-Банка</div>
+      <div style={{textAlign:"left"}}><WalletCard balance="15 200 ₽"/></div>
+      <div style={{marginTop:13}}>{PBtn("Перейти к оплате","dark")}</div>
+    </div>
+  )},
+  topup_me2me:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнение кошелька" s="Между своими счетами · me2me"/>
+      <div style={{marginTop:12,marginBottom:12}}><WalletCard balance="1 100 ₽" soft={true}/></div>
+      {[{l:"Сумма",v:"8 400 ₽"},{l:"Банк списания",v:"Альфа-Банк"},{l:"Куда",v:"Мастер-Кошелёк ····4567",last:true}].map((r,i)=>(<PRow key={i} {...r}/>))}
+      <div style={{marginTop:14}}>{PBtn("Подтвердить пополнение","dark")}</div>
+    </div>
+  )},
+  upsell:{title:"Предложение открыть кошелёк", render:()=>(
+    <div style={{padding:"18px 16px",textAlign:"center"}}>
+      <div style={{display:"flex",justifyContent:"center",marginBottom:12}}><BrandLogo height={28} color="#E01F26"/></div>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",lineHeight:1.25}}>Откройте кошелёк Мастер-Кошельку</div>
+      <div style={{fontSize:12,color:"var(--phone-text-2)",margin:"8px 0 14px",lineHeight:1.45}}>Бесплатно, без пластика на старте. Получайте баллы за каждую оплату.</div>
+      <Bonus txt="Скидка + баллы за первую оплату"/>
+      <div style={{marginTop:13}}>{PBtn("Открыть кошелёк","dark")}</div>
+    </div>
+  )},
+  delivery:{title:"Заказ пластика", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пластиковая карта" s="Курьером или в отделении"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Курьером",d:"завтра, бесплатно",sel:true},{n:"В отделении",d:"сегодня, рядом с вами",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"11px 12px",borderRadius:11,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:500,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{o.d}</div>
+            </div>
+            <span style={{width:16,height:16,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:8,height:8,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{fontSize:9,color:"var(--phone-text-3)",margin:"4px 0 12px"}}>Цифровой кошелёк уже активен — оплата доступна сейчас</div>
+      {PBtn("Заказать карту","dark")}
+    </div>
+  )},
+  shop_product:{title:"Витрина · Суши Мастер", render:()=>(
+    <div style={{padding:"14px 16px"}}>
+      <div style={{height:150,borderRadius:14,background:"linear-gradient(135deg,var(--surface-2),var(--surface-1))",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:12,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",top:10,left:10,background:"var(--lime)",borderRadius:7,padding:"3px 9px",fontSize:9,fontWeight:800,color:"var(--ink-1)",letterSpacing:".02em"}}>ХИТ</div>
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M6.5 8.5l2 1M17.5 8.5l-2 1M6.5 15.5l2-1M17.5 15.5l-2-1"/></svg>
+      </div>
+      <div style={{fontSize:10,color:"var(--phone-text-2)",fontWeight:600,textTransform:"uppercase",letterSpacing:".06em"}}>Роллы · Хит недели</div>
+      <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em",margin:"3px 0 8px",lineHeight:1.25}}>Сет «Токио» · 40 шт</div>
+      <div style={{display:"flex",alignItems:"baseline",gap:8,marginBottom:10}}>
+        <span className="num" style={{fontSize:22,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>3 850 ₽</span>
+        <span style={{fontSize:11,color:"var(--phone-text-3)"}}>в наличии</span>
+      </div>
+      <div style={{marginBottom:12}}><Bonus txt="Скидка + баллы при оплате Мастер-Кошельком"/></div>
+      {PBtn("В корзину","dark")}
+    </div>
+  )},
+  cart:{title:"Корзина", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Корзина" s="1 товар · Суши Мастер"/>
+      <div style={{display:"flex",gap:11,padding:"12px 0",borderBottom:"1px solid var(--phone-line-1)",marginTop:8}}>
+        <div style={{width:46,height:46,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.3}}>Сет «Токио» · 40 шт</div>
+          <div style={{fontSize:10,color:"var(--phone-text-2)",marginTop:2}}>1 шт.</div>
+        </div>
+        <div className="num" style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>3 850 ₽</div>
+      </div>
+      <div style={{marginTop:6}}>
+        <PRow l="Товары" v="3 850 ₽"/>
+        <PRow l="Доставка" v="бесплатно"/>
+        <PRow l="К оплате" v="3 850 ₽" last={true} strong={true}/>
+      </div>
+      <div style={{margin:"12px 0"}}><Bonus/></div>
+      {PBtn("Перейти к оплате","dark")}
+    </div>
+  )},
+  checkout_methods:{title:"Способ оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="К оплате 3 850 ₽"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Мастер-Кошелёк",d:"+100 баллов · кошелёк",sel:true,mark:true},{n:"Картой онлайн",d:"Visa · Mastercard · Мир",sel:false},{n:"СБП",d:"по QR-коду",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            {o.mark?<div style={{width:26,height:26,borderRadius:7,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800,color:"#fff"}}>С</div>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
+            </div>
+            <span style={{width:18,height:18,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:9,height:9,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{marginTop:6}}>{PBtn("Оплатить Мастер-Кошелёк","dark")}</div>
+    </div>
+  )},
+  method_selected:{title:"Подтверждение оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Оплата кошельком" s="Мастер-Кошелёк ····4567"/>
+      <div style={{margin:"12px 0"}}><WalletCard balance="12 400 ₽"/></div>
+      <PRow l="К оплате" v="3 850 ₽"/>
+      <PRow l="Спишется с кошелька" v="3 850 ₽"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"none"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислим баллов</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Подтвердить оплату","dark")}</div>
+    </div>
+  )},
+  paid:{title:"Оплачено", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Оплачено</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата прошла через Мастер-Кошелёк</div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:8}}>
+        <PRow l="Сумма заказа" v="3 850 ₽"/>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"1px solid var(--phone-line-1)"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Начислено баллов</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:12,fontWeight:800,color:"#fff"}}>+100</span>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",padding:"11px 0 0",alignItems:"baseline"}}>
+          <span style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Остаток в кошельке</span>
+          <span className="num" style={{fontSize:18,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>2 901 ₽</span>
+        </div>
+      </div>
+    </div>
+  )},
+  qr_loyalty:{title:"QR лояльности и оплаты", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{background:"var(--lime)",borderRadius:16,padding:"16px 14px",textAlign:"center"}}>
+        <div style={{fontSize:10,fontWeight:800,color:"var(--ink-1)",textTransform:"uppercase",letterSpacing:".1em",opacity:.75}}>Мастер-Кошелёк · единый код</div>
+        <div style={{background:"#fff",borderRadius:13,padding:14,margin:"12px auto",width:"fit-content"}}>
+          <QRish size={132} color="#0A0A0A" bg="#fff"/>
+        </div>
+        <div className="num" style={{fontSize:13,fontWeight:700,color:"var(--ink-1)",letterSpacing:".14em"}}>•••• •••• •••• 4567</div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,marginTop:9,background:"rgba(10,10,10,0.08)",borderRadius:9,padding:"5px 11px"}}>
+          <span style={{fontSize:11,fontWeight:600,color:"var(--ink-1)"}}>Баллы</span>
+          <span className="num" style={{fontSize:13,fontWeight:800,color:"var(--ink-1)"}}>981</span>
+        </div>
+      </div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",textAlign:"center",marginTop:12,lineHeight:1.4}}>Покажите код на кассе Суши Мастер —<br/>спишется оплата и начислятся баллы</div>
+    </div>
+  )},
+  cashier:{title:"Касса · Суши Мастер", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{borderRadius:16,border:"1px solid var(--phone-line-1)",overflow:"hidden"}}>
+        <div style={{background:"var(--ink-1)",padding:"16px 14px",textAlign:"center"}}>
+          <div style={{fontSize:10,color:"rgba(255,255,255,0.55)",textTransform:"uppercase",letterSpacing:".1em",fontWeight:700}}>Касса · Суши Мастер</div>
+          <div style={{margin:"12px auto 0",width:54,height:54,borderRadius:13,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <BrandLogo height={22} color="#fff"/>
+          </div>
+          <div className="num" style={{color:"#fff",fontSize:24,fontWeight:800,marginTop:12,letterSpacing:"-.02em"}}>3 850 ₽</div>
+          <div style={{color:"rgba(255,255,255,0.6)",fontSize:11,marginTop:2}}>оплата · Мастер-Кошелёк</div>
+        </div>
+        <div style={{padding:"13px 14px",background:"#fff"}}>
+          <div style={{display:"flex",alignItems:"center",gap:9}}>
+            <span style={{width:22,height:22,borderRadius:"50%",background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+              <svg width="12" height="12" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+            <div style={{fontSize:12,fontWeight:700,color:"var(--phone-text-1)"}}>Оплата принята · баллы начислены</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )},
+  offline_done:{title:"Оплата в магазине", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Покупка оплачена</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Оплата на кассе через Мастер-Кошелёк</div>
+      <div style={{marginBottom:12}}><Bonus txt="+100 баллов начислено"/></div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:6}}>
+        <PRow l="Магазин" v="Суши Мастер"/>
+        <PRow l="Сумма" v="3 850 ₽"/>
+        <PRow l="Остаток в кошельке" v="2 901 ₽" last={true} strong={true}/>
+      </div>
+    </div>
+  )},
+  profile_access:{title:"Профиль · Суши Мастер", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
+        <div style={{width:48,height:48,borderRadius:"50%",background:"var(--ink-1)",color:"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:16}}>ЕМ</div>
+        <div>
+          <div style={{fontSize:15,fontWeight:700,color:"var(--phone-text-1)"}}>Елена Морозова</div>
+          <div style={{fontSize:11,color:"var(--phone-text-2)"}}>+7 ••• ••• 45 67</div>
+        </div>
+      </div>
+      <div style={{display:"flex",gap:9,marginBottom:14}}>
+        <div style={{flex:1,background:"var(--lime)",borderRadius:13,padding:"12px"}}>
+          <div className="num" style={{fontSize:20,fontWeight:800,color:"var(--ink-1)",letterSpacing:"-.02em"}}>981</div>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--ink-1)",opacity:.7}}>баллов</div>
+        </div>
+        <div style={{flex:1,background:"var(--phone-surf)",borderRadius:13,padding:"12px"}}>
+          <div className="num" style={{fontSize:20,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>4</div>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--phone-text-2)"}}>заказов в месяц</div>
+        </div>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:11,padding:"13px 13px",borderRadius:13,border:"1px solid var(--phone-line-1)"}}>
+        <div style={{width:30,height:30,borderRadius:8,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center"}}>
+          <div style={{fontSize:13,fontWeight:800,color:"#fff",letterSpacing:"-.02em"}}>С</div>
+        </div>
+        <div style={{flex:1}}>
+          <div style={{fontSize:13,fontWeight:700,color:"var(--phone-text-1)"}}>Кошелёк Мастер-Кошельку</div>
+          <div style={{fontSize:10,color:"var(--phone-text-2)"}}>Открыть и управлять</div>
+        </div>
+        <span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={18}/></span>
+      </div>
+    </div>
+  )},
+  wallet_home:{title:"Кошелёк Мастер-Кошельку", render:()=>(
+    <div style={{padding:16}}>
+      <WalletCard balance="12 400 ₽"/>
+      <div style={{display:"flex",gap:8,margin:"13px 0"}}>
+        {[{l:"Пополнить",i:"savings"},{l:"Перевести",i:"refresh"},{l:"Действия",i:"wallet"}].map((a,i)=>(
+          <div key={i} style={{flex:1,background:"var(--phone-surf)",borderRadius:12,padding:"11px 6px",textAlign:"center"}}>
+            <div style={{display:"flex",justifyContent:"center",color:"var(--ink-1)",marginBottom:5}}><Ico d={ICONS[a.i]} size={19}/></div>
+            <div style={{fontSize:10.5,fontWeight:600,color:"var(--phone-text-1)"}}>{a.l}</div>
+          </div>))}
+      </div>
+      <div style={{fontSize:11,fontWeight:700,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".05em",margin:"4px 0 4px"}}>История</div>
+      {[{n:"Суши Мастер",d:"Оплата покупки",v:"−3 850 ₽",b:false},{n:"Пополнение",d:"со счёта в Альфа-Банке",v:"+8 400 ₽",b:true},{n:"Баллы",d:"начислено за оплату",v:"+100",b:false,bon:true}].map((t,i)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:i<2?"1px solid var(--phone-line-1)":"none"}}>
+          <div style={{width:30,height:30,borderRadius:9,background:t.bon?"var(--lime)":"var(--surface-2)",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>{t.n}</div>
+            <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{t.d}</div>
+          </div>
+          <div className="num" style={{fontSize:12,fontWeight:700,color:t.b?"var(--ink-1)":t.bon?"var(--ink-1)":"var(--phone-text-1)"}}>{t.v}</div>
+        </div>))}
+    </div>
+  )},
+  wallet_topup:{title:"Пополнение кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Пополнить кошелёк" s="Мастер-Кошелёк ····4567"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Со счёта в другом банке",d:"по СБП · мгновенно",mark:false},{n:"Со счёта в Альфа-Банке",d:"между своими · me2me",mark:true},{n:"Автопополнение",d:"при балансе ниже порога",mark:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.mark?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.mark?"var(--phone-surf)":"#fff"}}>
+            <div style={{width:30,height:30,borderRadius:8,background:o.mark?"var(--lime)":"var(--surface-2)",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+              <Ico d={ICONS[o.mark?"refresh":"savings"]} size={17}/>
+            </div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.mark?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:"var(--phone-text-2)"}}>{o.d}</div>
+            </div>
+            <span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={16}/></span>
+          </div>))}
+      </div>
+      <div style={{fontSize:9,color:"var(--phone-text-3)",marginTop:4}}>Лимит пополнения по СБП — 15 000 ₽ за операцию</div>
+    </div>
+  )},
+  wallet_actions:{title:"Действия с кошельком", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Действия" s="Управление кошельком Мастер-Кошелёк"/>
+      <div style={{marginTop:10}}>
+        {[{n:"Реквизиты кошелька",i:"card"},{n:"Изменить ПИН-код",i:"refresh"},{n:"Автопополнение",i:"savings"},{n:"Заморозить кошелёк",i:"wallet"},{n:"Тарифы и условия",i:"data"},{n:"Закрыть кошелёк",i:"arrow_r",danger:true}].map((a,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"13px 2px",borderBottom:i<5?"1px solid var(--phone-line-1)":"none"}}>
+            <div style={{width:30,height:30,borderRadius:8,background:"var(--phone-surf)",display:"flex",alignItems:"center",justifyContent:"center",color:a.danger?"#C0392B":"var(--ink-1)"}}>
+              <Ico d={ICONS[a.i]} size={17}/>
+            </div>
+            <div style={{flex:1,fontSize:13,fontWeight:600,color:a.danger?"#C0392B":"var(--phone-text-1)"}}>{a.n}</div>
+            {!a.danger&&<span style={{color:"var(--phone-text-3)"}}><Ico d={ICONS.arrow_r} size={16}/></span>}
+          </div>))}
+      </div>
+    </div>
+  )},
+  wallet_requisites:{title:"Реквизиты кошелька", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Реквизиты" s="Виртуальная карта Мастер-Кошелёк"/>
+      <div style={{margin:"12px 0"}}><WalletCard balance="12 400 ₽" num="4790 •••• •••• 4567"/></div>
+      {[{l:"Номер карты",v:"4790 12•• •••• 4567",copy:true},{l:"Срок действия",v:"08 / 29"},{l:"CVC",v:"•••",eye:true}].map((r,i)=>(
+        <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<2?"1px solid var(--phone-line-1)":"none"}}>
+          <span style={{fontSize:12,color:"var(--phone-text-2)"}}>{r.l}</span>
+          <span style={{display:"flex",alignItems:"center",gap:8}}>
+            <span className="num" style={{fontSize:12.5,fontWeight:600,color:"var(--phone-text-1)"}}>{r.v}</span>
+            {r.copy&&<span style={{color:"var(--phone-text-3)"}}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></span>}
+            {r.eye&&<span style={{color:"var(--phone-text-3)"}}><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.5"/></svg></span>}
+          </span>
+        </div>))}
+      <div style={{marginTop:14}}>{PBtn("Скопировать реквизиты","ghost")}</div>
+    </div>
+  )},
+  inst_offer:{title:"Оплата частями", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Способ оплаты" s="К оплате 3 850 ₽"/>
+      <div style={{marginTop:12}}>
+        {[{n:"Оплата частями",d:"Мастер-Кошелёк · 4 платежа без переплаты",sel:true,mark:true},{n:"Полная оплата кошельком",d:"3 850 ₽ сразу",sel:false}].map((o,i)=>(
+          <div key={i} style={{display:"flex",alignItems:"center",gap:11,padding:"12px",borderRadius:12,marginBottom:8,border:o.sel?"1.5px solid var(--ink-1)":"1px solid var(--phone-line-1)",background:o.sel?"var(--phone-surf)":"#fff"}}>
+            {o.mark?<div style={{width:26,height:26,borderRadius:7,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800,color:"#fff"}}>С</div>:<div style={{width:26,height:26,borderRadius:7,background:"var(--surface-2)"}}/>}
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:o.sel?700:600,color:"var(--phone-text-1)"}}>{o.n}</div>
+              <div style={{fontSize:10,color:o.mark?"var(--ink-1)":"var(--phone-text-2)",fontWeight:o.mark?600:400}}>{o.d}</div>
+            </div>
+            <span style={{width:18,height:18,borderRadius:"50%",border:"1.5px solid "+(o.sel?"var(--ink-1)":"var(--phone-line-1)"),display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {o.sel&&<span style={{width:9,height:9,borderRadius:"50%",background:"var(--ink-1)"}}/>}</span>
+          </div>))}
+      </div>
+      <div style={{marginTop:6}}>{PBtn("Оформить оплату частями","dark")}</div>
+    </div>
+  )},
+  inst_plan:{title:"График платежей", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Оплата частями" s="3 850 ₽ · 4 платежа раз в 2 недели"/>
+      <div style={{display:"flex",gap:6,margin:"13px 0"}}>
+        {[1,2,3,4].map((n,i)=>(
+          <div key={i} style={{flex:1,height:5,borderRadius:3,background:i===0?"var(--lime)":"var(--surface-2)"}}/>
+        ))}
+      </div>
+      {[{d:"Сегодня",v:"2 375 ₽",now:true},{d:"Через 2 недели",v:"2 375 ₽"},{d:"Через 4 недели",v:"2 375 ₽"},{d:"Через 6 недель",v:"2 374 ₽"}].map((p,i)=>(
+        <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"11px 0",borderBottom:i<3?"1px solid var(--phone-line-1)":"none"}}>
+          <span style={{display:"flex",alignItems:"center",gap:9}}>
+            <span style={{width:8,height:8,borderRadius:"50%",background:p.now?"var(--lime-deep)":"var(--phone-line-1)"}}/>
+            <span style={{fontSize:12,fontWeight:p.now?700:500,color:"var(--phone-text-1)"}}>{p.d}</span>
+          </span>
+          <span className="num" style={{fontSize:13,fontWeight:p.now?800:600,color:"var(--phone-text-1)"}}>{p.v}</span>
+        </div>))}
+      <div style={{fontSize:10,color:"var(--phone-text-3)",margin:"10px 0 12px"}}>Без процентов и переплаты · комиссия 0 ₽</div>
+      {PBtn("Продолжить","dark")}
+    </div>
+  )},
+  inst_consent:{title:"Согласия", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подтверждение условий" s="Оплата частями · Мастер-Кошелёк"/>
+      <div style={{marginTop:12,display:"flex",flexDirection:"column",gap:10}}>
+        {["Согласие на оплату частями и график платежей","Согласие на обработку персональных данных (СОПД)","Подписание простой электронной подписью (ЭДС)"].map((t,i)=>(
+          <div key={i} style={{display:"flex",gap:10,alignItems:"flex-start"}}>
+            <span style={{width:18,height:18,borderRadius:5,background:"var(--lime)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:1}}>
+              <svg width="11" height="11" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 6" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </span>
+            <span style={{fontSize:11.5,color:"var(--phone-text-1)",lineHeight:1.4}}>{t}</span>
+          </div>))}
+      </div>
+      <div style={{margin:"14px 0 12px",padding:"10px 12px",background:"var(--phone-surf)",borderRadius:11,fontSize:10.5,color:"var(--phone-text-2)",lineHeight:1.45}}>Оплату частями предоставляет Альфа-Банк. Условия — в графике платежей.</div>
+      {PBtn("Подтвердить кодом из СМС","dark")}
+    </div>
+  )},
+  inst_confirm:{title:"Первый платёж", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Первый платёж" s="Оплата частями · 4 платежа"/>
+      <div style={{margin:"13px 0",textAlign:"center",padding:"16px 12px",background:"var(--phone-surf)",borderRadius:14}}>
+        <div style={{fontSize:11,color:"var(--phone-text-2)"}}>Сейчас спишется</div>
+        <div className="num" style={{fontSize:30,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.03em",margin:"4px 0"}}>2 375 ₽</div>
+        <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"var(--lime)",borderRadius:9,padding:"4px 10px"}}>
+          <span style={{fontSize:10,fontWeight:700,color:"var(--ink-1)"}}>без процентов</span>
+        </div>
+      </div>
+      <PRow l="Всего к оплате" v="3 850 ₽"/>
+      <PRow l="Платежей осталось" v="3 × 2 375 ₽"/>
+      <PRow l="Спишется с кошелька" v="Мастер-Кошелёк ····4567" last={true}/>
+      <div style={{marginTop:14}}>{PBtn("Оплатить 2 375 ₽","dark")}</div>
+    </div>
+  )},
+  inst_done:{title:"Оплата частями оформлена", render:()=>(
+    <div style={{padding:16,textAlign:"center"}}>
+      <TickCircle/>
+      <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Покупка оформлена</div>
+      <div style={{fontSize:11,color:"var(--phone-text-2)",margin:"6px 0 13px"}}>Первый платёж прошёл · 3 платежа впереди</div>
+      <div style={{marginBottom:12}}><Bonus txt="+100 баллов начислено"/></div>
+      <div style={{textAlign:"left",borderTop:"1px solid var(--phone-line-1)",paddingTop:6}}>
+        <PRow l="Оплачено сейчас" v="2 375 ₽"/>
+        <PRow l="Следующий платёж" v="через 2 недели"/>
+        <PRow l="График платежей" v="в кошельке" last={true} strong={true}/>
+      </div>
+    </div>
+  )},
+};
+
+/* ============================================================
+   PHONE — device frame (light theme, lime glow, GAMark titlebar)
+   ============================================================ */
+/* ===== GROWTH SECTION — icons, helpers, screens ===== */
+const GIco=({d,size=22,stroke=1.6})=>(
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round">{d}</svg>
+);
+const GI={
+  piggy:<><path d="M12 3v4M5 11h14M5 11v8a2 2 0 002 2h10a2 2 0 002-2v-8M5 11a4 4 0 014-4h6a4 4 0 014 4"/><circle cx="16" cy="15" r="1"/></>,
+  shield:<><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9.5-4.5-1-8-4.5-8-9.5V6l8-3z"/><path d="M9 12l2 2 4-4"/></>,
+  gift:<><path d="M20 12v8H4v-8M2 8h20v4H2zM12 8v13M12 8s-4-5-7-3c-2 1.5-1 5 3 5h4zM12 8s4-5 7-3c2 1.5 1 5-3 5h-4z"/></>,
+  refresh:<><path d="M3 12a9 9 0 0115.5-6.3L21 8M21 3v5h-5M21 12a9 9 0 01-15.5 6.3L3 16M3 21v-5h5"/></>,
+  bolt:<><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></>,
+  layers:<><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/></>,
+  crown:<><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-1.5 11H4.5L3 8z"/></>,
+  link:<><path d="M10 14a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 10a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/></>,
+};
+const GrowthBar=({pct,col="var(--lime-deep)",delay=0.18})=>(
+  <div style={{height:6,background:"var(--phone-surf)",borderRadius:4,position:"relative",overflow:"hidden"}}>
+    <motion.div initial={{width:"0%"}} animate={{width:pct+"%"}} transition={{duration:0.9,ease:EASE,delay}} style={{position:"absolute",inset:0,background:col,borderRadius:4}}/>
+  </div>
+);
+const Avatar=({t,lime})=>(
+  <div style={{width:26,height:26,borderRadius:"50%",border:"2px solid #fff",marginLeft:-7,background:lime?"var(--lime)":"var(--ink-1)",color:lime?"var(--ink-1)":"#fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,fontWeight:700}}>{t}</div>
+);
+Object.assign(SCREENS, {
+  gp_kopilka:{title:"Копилка на заказ", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Копилка на заказ" s="Банкетный сет · 120 шт"/>
+      <div style={{margin:"12px 0 12px",borderRadius:16,border:"1px solid var(--phone-line-1)",padding:"14px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:8}}>
+          <span style={{fontSize:10,color:"var(--phone-text-2)",textTransform:"uppercase",letterSpacing:".06em"}}>Накоплено</span>
+          <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>61%</span>
+        </div>
+        <div style={{display:"flex",alignItems:"baseline",gap:7,marginBottom:10}}>
+          <span className="num" style={{fontSize:25,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.03em"}}>9 200 ₽</span>
+          <span className="num" style={{fontSize:12,color:"var(--phone-text-3)",fontWeight:600}}>/ 15 000 ₽</span>
+        </div>
+        <GrowthBar pct={61}/>
+        <div style={{fontSize:10,color:"var(--phone-text-3)",marginTop:8}}>Осталось 5 800 ₽ · цель к 20 июля</div>
+      </div>
+      <PRow l="Автопополнение" v="1 500 ₽ / нед"/>
+      <PRow l="Округление покупок" v="включено"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Проценты на остаток</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>начисляются</span>
+      </div>
+      <div style={{marginTop:8}}>{PBtn("Пополнить копилку","dark")}</div>
+    </div>
+  )},
+  gp_escrow:{title:"Защита платежа", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center",marginBottom:4}}>
+        <div style={{width:46,height:46,borderRadius:"50%",background:"var(--lime)",margin:"0 auto 10px",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+          <GIco d={GI.shield} size={23}/>
+        </div>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Оплата под защитой</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Деньги в эскроу до получения заказа</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
+        <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Сет «Филадельфия» · 32 шт</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>3 850 ₽ · в эскроу</div>
+        </div>
+        <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>HOLD</span>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+        {[{t:"Оплачено",on:true},{t:"Доставка",on:false},{t:"Получено",on:false}].map((s,i)=>(
+          <React.Fragment key={i}>
+            <span style={{fontSize:10,fontWeight:600,color:s.on?"var(--ink-1)":"var(--phone-text-3)"}}>{s.t}</span>
+            {i<2&&<span style={{flex:1,height:2,background:i===0?"var(--lime-deep)":"var(--phone-line-1)",borderRadius:1}}/>}
+          </React.Fragment>
+        ))}
+      </div>
+      <div style={{background:"var(--lime-soft)",borderRadius:11,padding:"10px 12px",display:"flex",alignItems:"flex-start",gap:9,marginBottom:13}}>
+        <span style={{color:"var(--ink-1)",marginTop:1}}><GIco d={GI.bolt} size={16}/></span>
+        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Передумали? Деньги вернутся мгновенно в кошелёк — без ожидания</div>
+      </div>
+      {PBtn("Оплатить с защитой","dark")}
+    </div>
+  )},
+  gp_gift:{title:"Оплата частями", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Кредит на банкет" s="Предодобренный лимит · без документов"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px"}}>
+        <div style={{display:"flex",gap:11,marginBottom:11}}>
+          <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Банкетный сет · 120 шт</div>
+            <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>15 400 ₽</div>
+          </div>
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:7}}>
+          <span style={{fontSize:11,color:"var(--phone-text-2)"}}>Платёж в месяц</span>
+          <span className="num" style={{fontSize:12,fontWeight:700,color:"var(--phone-text-1)"}}>5 133 ₽ <span style={{color:"var(--phone-text-3)",fontWeight:600}}>× 3 мес</span></span>
+        </div>
+        <GrowthBar pct={33}/>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",fontWeight:600,marginTop:11}}>Весь банкет — 15 400 ₽ · без переплаты</div>
+      </div>
+      <div style={{display:"flex",gap:8}}>
+        <div style={{flex:1.4}}>{PBtn("На 3 месяца","dark")}</div>
+        <div style={{flex:1}}>{PBtn("Оформить","lime")}</div>
+      </div>
+    </div>
+  )},
+  gp_replenish:{title:"Подписка на обеды", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подписка на обеды" s="Каждые 30 дней"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Пакет: 20 обедов / мес</div>
+          <div style={{display:"flex",gap:6,marginTop:5}}>
+            <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--surface-2)",borderRadius:6,padding:"2px 7px"}}>−10%</span>
+            <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:6,padding:"2px 7px"}}>+ баллы</span>
+          </div>
+        </div>
+        <span style={{color:"var(--phone-text-3)"}}><GIco d={GI.refresh} size={18}/></span>
+      </div>
+      <PRow l="Следующая доставка" v="28 июня"/>
+      <PRow l="Списание" v="Мастер-Кошелёк ····4567"/>
+      <PRow l="Стоимость" v="8 549 ₽ / мес" last={true} strong={true}/>
+      <div style={{marginTop:13}}>{PBtn("Управлять подпиской","dark")}</div>
+    </div>
+  )},
+});
+
+Object.assign(SCREENS, {
+  gp_kop_goal:{title:"Новая копилка", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Цель: банкетный сет" s="Соберём к нужной дате"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Сет «Дракон» · 24 шт</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>15 000 ₽</div>
+        </div>
+      </div>
+      <PRow l="Автопополнение" v="1 500 ₽ / нед"/>
+      <PRow l="Округление покупок" v="включить"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Проценты на остаток</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>да</span>
+      </div>
+      <div style={{marginTop:10}}>{PBtn("Создать копилку","dark")}</div>
+    </div>
+  )},
+  gp_kop_done:{title:"Цель достигнута", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center"}}>
+        <TickCircle/>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Цель достигнута!</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>15 000 ₽ накоплено — оплатите в один тап</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:40,height:40,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Сет «Дракон» · 24 шт</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>15 000 ₽ · из копилки</div>
+        </div>
+        <span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>100%</span>
+      </div>
+      <Bonus txt="+450 баллов за покупку из копилки"/>
+      <div style={{marginTop:11}}>{PBtn("Оплатить из копилки","dark")}</div>
+    </div>
+  )},
+  gp_esc_refund:{title:"Мгновенный возврат", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center",marginBottom:4}}>
+        <div style={{width:46,height:46,borderRadius:"50%",background:"var(--lime)",margin:"0 auto 10px",display:"flex",alignItems:"center",justifyContent:"center",color:"var(--ink-1)"}}>
+          <GIco d={GI.refresh} size={22}/>
+        </div>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Возврат оформлен</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Деньги уже в кошельке — без ожидания</div>
+      </div>
+      <div style={{margin:"13px 0 12px",borderRadius:13,border:"1px solid var(--phone-line-1)",padding:"11px 13px",display:"flex",alignItems:"center",gap:11}}>
+        <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)"}}>Сет «Филадельфия» · 32 шт</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>Возврат 3 850 ₽</div>
+        </div>
+        <span className="num" style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>+3 850 ₽</span>
+      </div>
+      <div style={{display:"flex",gap:9}}>
+        <div style={{flex:1,borderRadius:11,border:"1px solid var(--phone-line-1)",padding:"10px",textAlign:"center"}}>
+          <div style={{fontSize:10,color:"var(--phone-text-3)"}}>На стороннюю карту</div>
+          <div style={{fontSize:12,fontWeight:700,color:"var(--phone-text-2)",marginTop:3}}>7–14 дней</div>
+        </div>
+        <div style={{flex:1,borderRadius:11,background:"var(--lime-soft)",padding:"10px",textAlign:"center",border:"1px solid var(--lime-deep)"}}>
+          <div style={{fontSize:10,color:"var(--ink-1)",fontWeight:600}}>В Мастер-Кошелёк</div>
+          <div style={{fontSize:12,fontWeight:800,color:"var(--ink-1)",marginTop:3}}>мгновенно</div>
+        </div>
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Вернуть в кошелёк","dark")}</div>
+    </div>
+  )},
+  gp_esc_stay:{title:"Остаётся у вас", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Деньги в кошельке" s="Готовы к следующей покупке"/>
+      <div style={{margin:"12px 0 12px"}}><WalletCard balance="3 850 ₽" num="•••• 4567"/></div>
+      <div style={{background:"var(--lime-soft)",borderRadius:11,padding:"10px 12px",display:"flex",alignItems:"flex-start",gap:9,marginBottom:13}}>
+        <span style={{color:"var(--ink-1)",marginTop:1}}><GIco d={GI.bolt} size={16}/></span>
+        <div style={{fontSize:11,fontWeight:600,color:"var(--ink-1)",lineHeight:1.35}}>Возврат не ушёл в другой банк — клиент тратит его снова у Суши Мастер</div>
+      </div>
+      {PBtn("Выбрать новый сет","dark")}
+    </div>
+  )},
+  gp_gift_wish:{title:"Кредитный лимит", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Кредитный лимит" s="Банкет · 14 июля"/>
+      <div style={{marginTop:12,display:"flex",flexDirection:"column",gap:9}}>
+        {[{n:"Банкетный сет · 120 шт",p:"15 400 ₽",hot:true},{n:"Сет «Токио» · 40 шт",p:"3 850 ₽"},{n:"Сет «Филадельфия» · 32 шт",p:"3 850 ₽"}].map((it,i)=>(
+          <div key={i} style={{display:"flex",gap:11,alignItems:"center",borderRadius:12,border:"1px solid var(--phone-line-1)",padding:"10px 12px"}}>
+            <div style={{width:38,height:38,borderRadius:9,background:"var(--surface-2)",flexShrink:0}}/>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>{it.n}</div>
+              <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:1}}>{it.p}</div>
+            </div>
+            {it.hot&&<span style={{fontSize:9,fontWeight:700,color:"var(--ink-1)",background:"var(--lime)",borderRadius:7,padding:"3px 7px"}}>топ</span>}
+          </div>
+        ))}
+      </div>
+      <div style={{marginTop:12}}>{PBtn("Использовать лимит","dark")}</div>
+    </div>
+  )},
+  gp_gift_done:{title:"Кредит оформлен", render:()=>(
+    <div style={{padding:16}}>
+      <div style={{textAlign:"center"}}>
+        <TickCircle/>
+        <div style={{fontSize:16,fontWeight:700,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>Кредит оформлен</div>
+        <div style={{fontSize:11,color:"var(--phone-text-2)",marginTop:4}}>Банкет оплачен · первый платёж 5 133 ₽</div>
+      </div>
+      <div style={{margin:"13px 0 12px"}}><WalletCard balance="3 850 ₽" num="•••• 4567" soft={true}/></div>
+      <div style={{display:"flex",alignItems:"center",marginBottom:13,paddingLeft:7}}>
+        <Avatar t="М"/><Avatar t="К" lime/><Avatar t="Л"/><Avatar t="+2"/>
+        <span style={{marginLeft:6,fontSize:11,color:"var(--phone-text-2)",fontWeight:600}}>Ежемесячный платёж</span>
+      </div>
+      {PBtn("Заказать ещё","dark")}
+    </div>
+  )},
+  gp_rep_setup:{title:"Новая подписка", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Подписка на обеды" s="Автоповтор любимого сета"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px",display:"flex",gap:11,alignItems:"center"}}>
+        <div style={{width:42,height:42,borderRadius:10,background:"var(--surface-2)",flexShrink:0}}/>
+        <div style={{flex:1}}>
+          <div style={{fontSize:12,fontWeight:600,color:"var(--phone-text-1)",lineHeight:1.25}}>Пакет: 20 обедов / мес</div>
+          <div className="num" style={{fontSize:11,color:"var(--phone-text-2)",marginTop:2}}>3 850 ₽ → 8 549 ₽</div>
+        </div>
+      </div>
+      <PRow l="Периодичность" v="ежемесячно"/>
+      <PRow l="Скидка на доставку" v="−10%"/>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0"}}>
+        <span style={{fontSize:12,color:"var(--phone-text-1)",fontWeight:600}}>Баллы за регулярность</span>
+        <span className="num" style={{background:"var(--lime)",borderRadius:8,padding:"3px 9px",fontSize:11,fontWeight:800,color:"var(--ink-1)"}}>+5%</span>
+      </div>
+      <div style={{marginTop:10}}>{PBtn("Оформить подписку","dark")}</div>
+    </div>
+  )},
+  gp_rep_spend:{title:"Регулярность", render:()=>(
+    <div style={{padding:16}}>
+      <PTitle t="Ваша подписка" s="3 доставки подряд"/>
+      <div style={{margin:"12px 0 12px",borderRadius:14,border:"1px solid var(--phone-line-1)",padding:"13px"}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:9}}>
+          <span style={{fontSize:11,color:"var(--phone-text-2)"}}>Накоплено баллов</span>
+          <span className="num" style={{fontSize:18,fontWeight:800,color:"var(--phone-text-1)",letterSpacing:"-.02em"}}>1 280</span>
+        </div>
+        <GrowthBar pct={75}/>
+        <div style={{fontSize:10,color:"var(--phone-text-3)",marginTop:8}}>До статуса «Платина» — 1 доставка</div>
+      </div>
+      <PRow l="Доставка №3" v="доставлено"/>
+      <PRow l="Следующее списание" v="28 июля"/>
+      <PRow l="Экономия за 3 мес" v="2 850 ₽" last={true} strong={true}/>
+      <div style={{marginTop:11}}>{PBtn("Управлять подпиской","dark")}</div>
+    </div>
+  )},
+});
+
+function Phone({screenKey}){
+  const screen = SCREENS[screenKey] || SCREENS.ga_checkout;
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotY = useTransform(mx, [-1, 1], [8, -8]);
+  const rotX = useTransform(my, [-1, 1], [-6, 6]);
+  const sRotY = useSpring(rotY, { stiffness:120, damping:16, mass:0.6 });
+  const sRotX = useSpring(rotX, { stiffness:120, damping:16, mass:0.6 });
+  const ref = useRef(null);
+  const onMove = (e)=>{
+    const r = ref.current.getBoundingClientRect();
+    const cx = r.left + r.width/2, cy = r.top + r.height/2;
+    mx.set((e.clientX - cx) / (r.width/2));
+    my.set((e.clientY - cy) / (r.height/2));
+  };
+  const onLeave = ()=>{ mx.set(0); my.set(0); };
+
+  return (
+    <div style={{perspective:1200, position:"relative", padding:"40px 20px", width:"100%", display:"flex", justifyContent:"center"}}>
+      <div style={{position:"absolute", width:380, height:580, borderRadius:"50%", background:"radial-gradient(circle, rgba(224,31,38,0.42) 0%, rgba(224,31,38,0) 65%)", filter:"blur(46px)", zIndex:0, top:"50%", left:"50%", transform:"translate(-50%,-50%)", pointerEvents:"none"}}/>
+      <motion.div
+        ref={ref}
+        onMouseMove={onMove}
+        onMouseLeave={onLeave}
+        style={{
+          rotateY:sRotY, rotateX:sRotX, transformStyle:"preserve-3d",
+          width:296, height:600, borderRadius:48,
+          background:"linear-gradient(180deg, #232323 0%, #0a0a0a 100%)",
+          padding:11, position:"relative", flexShrink:0,
+          boxShadow:`0 1px 0 rgba(255,255,255,0.10) inset, 0 0 0 1px rgba(10,10,10,0.06), 0 30px 60px -20px rgba(10,10,10,0.35), 0 60px 120px -30px rgba(224,31,38,0.28), 0 100px 180px -50px rgba(224,31,38,0.16)`
+        }}
+        initial={{opacity:0, y:40, scale:0.96}}
+        animate={{opacity:1, y:0, scale:1}}
+        transition={{...SPRING.silky, delay:0.3}}>
+        <div style={{position:"absolute",left:-2,top:108,width:3,height:30,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",left:-2,top:154,width:3,height:52,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",left:-2,top:218,width:3,height:52,background:"#161616",borderRadius:2}}/>
+        <div style={{position:"absolute",right:-2,top:150,width:3,height:80,background:"#161616",borderRadius:2}}/>
+        <div style={{borderRadius:37, overflow:"hidden", background:"var(--phone-bg)", height:"100%", position:"relative"}}>
+          <div style={{position:"absolute",top:9,left:"50%",transform:"translateX(-50%)",width:96,height:28,background:"#000",borderRadius:14,zIndex:5}}/>
+          <div style={{paddingTop:42,height:"100%",display:"flex",flexDirection:"column"}}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={screenKey}
+                initial={{opacity:0, y:14, filter:"blur(6px)"}}
+                animate={{opacity:1, y:0, filter:"blur(0px)"}}
+                exit={{opacity:0, y:-10, filter:"blur(6px)"}}
+                transition={{duration:0.42, ease:EASE}}
+                style={{flex:"1 1 0",display:"flex",flexDirection:"column",minHeight:0}}>
+                <div className="phone-screen">
+                  <div className="phone-status">
+                    <span className="num">9:41</span>
+                    <div style={{display:"flex",gap:4,alignItems:"center"}}>
+                      <svg width="14" height="9" viewBox="0 0 14 9" fill="none">
+                        <rect x="0.5" y="0.5" width="10" height="8" rx="1.5" stroke="var(--phone-text-1)"/>
+                        <rect x="2" y="2" width="7" height="5" fill="var(--phone-text-1)"/>
+                        <rect x="11.5" y="3" width="1.5" height="3" rx="0.4" fill="var(--phone-text-1)"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="phone-titlebar">
+                    <BrandLogo height={13} color="#E01F26"/>
+                    <div style={{fontSize:11,fontWeight:600,color:"var(--phone-text-1)",letterSpacing:"-.01em"}}>{screen.title}</div>
+                  </div>
+                  <div style={{flex:"1 1 0",overflow:"hidden",minHeight:0}}>{screen.render()}</div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            <div style={{height:22,display:"flex",alignItems:"center",justifyContent:"center",background:"var(--phone-bg)"}}>
+              <div style={{width:108,height:4,background:"#000",borderRadius:2,opacity:.85}}/>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ============================================================
+   NAVBAR — non-sticky, scrolls with page, light, co-brand
+   ============================================================ */
+function Navbar({showMetrics, setShowMetrics, scrolled}){
+  return (
+    <motion.div
+      initial={{opacity:0, y:-12}}
+      animate={{opacity:1, y:0}}
+      transition={{duration:0.6, ease:EASE, delay:0.1}}
+      style={{
+        position:"relative", zIndex:50,
+        backdropFilter:scrolled?"blur(20px) saturate(140%)":"blur(0px)",
+        WebkitBackdropFilter:scrolled?"blur(20px) saturate(140%)":"blur(0px)",
+        background:scrolled?"rgba(255,255,255,0.78)":"transparent",
+        borderBottom:scrolled?"1px solid var(--line-1)":"1px solid transparent",
+        transition:"background 300ms, border 300ms, backdrop-filter 300ms"
+      }}>
+      <div style={{maxWidth:1320, margin:"0 auto", padding:"16px 40px", display:"flex", justifyContent:"space-between", alignItems:"center", gap:16, flexWrap:"wrap"}} className="navbar-inner">
+        <div style={{display:"flex",alignItems:"center",gap:13}}>
+          <div style={{fontSize:15,fontWeight:700,letterSpacing:"-.015em",color:"var(--lime-deep)"}}>суши мастер</div>
+          <div style={{fontSize:13,fontWeight:600,letterSpacing:"-.005em",color:"var(--ink-1)"}}>
+            <span style={{color:"var(--ink-3)",fontWeight:500}}>×</span> Альфа-Банк
+            <span style={{color:"var(--ink-3)",fontWeight:400,marginLeft:8}}>/ Мастер-Кошелёк</span>
+          </div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div className="eyebrow no-mark" style={{fontSize:10,letterSpacing:"0.16em",color:"var(--ink-4)"}}>CJM · 2026</div>
+          <button onClick={()=>setShowMetrics(!showMetrics)}
+            style={{display:"flex",alignItems:"center",gap:8, padding:"9px 14px", borderRadius:999, border:"1px solid var(--line-2)", background:"rgba(10,10,10,0.02)", fontSize:12, fontWeight:500, color:"var(--ink-1)", cursor:"pointer", transition:"background 200ms"}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(10,10,10,0.05)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(10,10,10,0.02)"}>
+            <motion.span
+              animate={{background:showMetrics ? "var(--lime-deep)" : "rgba(10,10,10,0.18)", boxShadow:showMetrics ? "0 0 0 4px var(--lime-glow)" : "0 0 0 0 rgba(0,0,0,0)"}}
+              transition={{duration:0.3}}
+              style={{width:6,height:6,borderRadius:"50%"}}/>
+            {showMetrics?"Метрики ВКЛ":"Метрики ВЫКЛ"}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+function Hero({view, setView, activeJourney, setActiveJourney}){
+  return (
+    <section className="hero" style={{padding:"72px 40px 70px", maxWidth:1320, margin:"0 auto", position:"relative", display:"flex", flexDirection:"column", justifyContent:"flex-end"}}>
+      <motion.div initial={{opacity:0, y:8}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.2}} className="eyebrow" style={{marginBottom:26}}>
+        Customer Journey Map · Суши Мастер
+      </motion.div>
+      <div className="hero-grid" style={{display:"grid", gridTemplateColumns:"minmax(0, 1.5fr) minmax(0, 1fr)", gap:72, alignItems:"end", marginBottom:44}}>
+        <div>
+          <h1 className="display" style={{fontSize:"clamp(54px, 8.5vw, 132px)", fontWeight:800, letterSpacing:"-0.05em", lineHeight:0.94, margin:0, color:"var(--ink-1)"}}>
+            <motion.span initial={{opacity:0, y:60, filter:"blur(12px)"}} animate={{opacity:1, y:0, filter:"blur(0px)"}} transition={{duration:0.9, ease:EASE, delay:0.35}} style={{display:"inline-block"}}>Суши Мастер</motion.span>{" "}
+            <motion.span initial={{opacity:0, y:60, filter:"blur(12px)"}} animate={{opacity:1, y:0, filter:"blur(0px)"}} transition={{duration:0.9, ease:EASE, delay:0.53}} className="mark-hl" style={{display:"inline-block"}}><span>Wallet</span></motion.span>
+          </h1>
+        </div>
+        <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.7}} style={{paddingBottom:18, maxWidth:380}}>
+          <div style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em"}}>
+            White-label кошелёк Альфа-Банка, встроенный в приложение Суши Мастер. Кэшбэк баллами за каждый заказ роллов, суши и сетов — и моментальные выплаты точкам сети на кошелёк, без банковской комиссии. Интеграция — через xPlatform Альфа-Банка.
+          </div>
+          <div style={{display:"flex",alignItems:"center",gap:13,marginTop:22,fontSize:12,color:"var(--ink-3)",letterSpacing:"0.02em"}}>
+            <div style={{display:"flex",alignItems:"center",gap:6}}>
+              <span style={{width:6,height:6,borderRadius:"50%",background:"var(--lime-deep)",boxShadow:"0 0 8px var(--lime-glow)"}}/>
+              Live прототип
+            </div>
+            <span className="dot"/>
+            <span>6 сценариев</span>
+          </div>
+        </motion.div>
+      </div>
+      <ScenarioTabs view={view} setView={setView} activeJourney={activeJourney} setActiveJourney={setActiveJourney}/>
+    </section>
+  );
+}
+
+/* ============================================================
+   SCENARIO TABS — two groups, each with its own pill
+   ============================================================ */
+function TabRow({title, items, activeJourney, setActiveJourney, pillId}){
+  return (
+    <div style={{marginBottom:14}}>
+      <div className="eyebrow no-mark" style={{fontSize:10, letterSpacing:"0.16em", color:"var(--ink-3)", marginBottom:11, fontWeight:600}}>{title}</div>
+      <LayoutGroup id={pillId}>
+        <div style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:18, padding:5, gap:2, maxWidth:"100%", flexWrap:"wrap"}}>
+          {items.map(({j, gi})=>{
+            const active = gi === activeJourney;
+            return (
+              <button key={j.id} onClick={()=>setActiveJourney(gi)}
+                style={{position:"relative", padding:"12px 18px", borderRadius:14, fontSize:13.5, fontWeight:600, letterSpacing:"-0.005em", color: active ? "#fff" : "var(--ink-2)", display:"flex", alignItems:"center", gap:9, zIndex:1, background:"transparent", border:"none", cursor:"pointer", transition:"color 200ms"}}>
+                {active && (
+                  <motion.div layoutId={pillId+"-pill"} transition={{...SPRING.snappy}}
+                    style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:14, boxShadow:"0 8px 20px -6px rgba(10,10,10,0.30)", zIndex:-1}}/>
+                )}
+                {j.label}
+              </button>
+            );
+          })}
+        </div>
+      </LayoutGroup>
+    </div>
+  );
+}
+function ScenarioTabs({view, setView, activeJourney, setActiveJourney}){
+  const journeyItems = journeys.map((j,gi)=>({j,gi})).filter(x=>x.j.group==="journey");
+  const capItems = journeys.map((j,gi)=>({j,gi})).filter(x=>x.j.group==="capability");
+  const cjm = view === "cjm";
+  const growthActive = view === "growth";
+  const pickJourney = (gi)=>{ setActiveJourney(gi); setView("cjm"); };
+  const GROWTH_DESC = "Возможности на базе банковской лицензии — то, что недоступно НКО-конкурентам";
+  return (
+    <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.8, ease:EASE, delay:0.85}}>
+      <TabRow title="Клиентский путь" items={journeyItems} activeJourney={cjm?activeJourney:-1} setActiveJourney={pickJourney} pillId="grp-journey"/>
+      <TabRow title="Возможности кошелька" items={capItems} activeJourney={cjm?activeJourney:-1} setActiveJourney={pickJourney} pillId="grp-cap"/>
+      <div style={{marginBottom:14}}>
+        <div className="eyebrow no-mark" style={{fontSize:10, letterSpacing:"0.16em", color:"var(--ink-3)", marginBottom:11, fontWeight:600}}>Развитие · банковский слой</div>
+        <button onClick={()=>setView("growth")}
+          style={{position:"relative", display:"inline-flex", alignItems:"center", gap:9, padding:"12px 18px", borderRadius:16, fontSize:13.5, fontWeight:700, letterSpacing:"-0.005em", cursor:"pointer", border: growthActive?"1px solid transparent":"1px solid var(--lime-deep)", background: growthActive?"var(--lime)":"var(--surface-1)", color:"var(--ink-1)", boxShadow: growthActive?"0 10px 24px -8px var(--lime-glow)":"none", transition:"background 200ms, box-shadow 200ms, border-color 200ms"}}>
+          <span style={{display:"inline-flex", color:"var(--ink-1)"}}><GIco d={GI.bolt} size={16}/></span>
+          Точки роста
+        </button>
+      </div>
+      <motion.div key={growthActive?"growth":activeJourney} initial={{opacity:0, y:6}} animate={{opacity:1, y:0}} transition={{duration:0.4, ease:EASE}}
+        style={{fontSize:13, color:"var(--ink-3)", marginTop:8, letterSpacing:"-0.005em"}}>
+        {growthActive ? GROWTH_DESC : journeys[activeJourney].desc}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ============================================================
+   PROGRESS RAIL
+   ============================================================ */
+function ProgressRail({steps, active, onPick}){
+  const progress = active / Math.max(1, steps.length - 1);
+  return (
+    <div className="step-rail-wrap" style={{marginBottom:48}}>
+      <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", marginBottom:16}}>
+        <div className="eyebrow" style={{margin:0}}>Шаги сценария</div>
+        <div className="num" style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"0.04em"}}>
+          {String(active+1).padStart(2,"0")} <span style={{color:"var(--ink-4)"}}>/ {String(steps.length).padStart(2,"0")}</span>
+        </div>
+      </div>
+      <div style={{position:"relative", height:1, background:"var(--line-2)", marginBottom:18}}>
+        <motion.div animate={{width:`${progress*100}%`}} transition={SPRING.silky}
+          style={{position:"absolute", inset:0, background:"var(--lime-deep)", boxShadow:"0 0 12px var(--lime-glow)"}}/>
+      </div>
+      <div className="step-rail" style={{display:"grid", gridTemplateColumns:`repeat(${steps.length}, minmax(0,1fr))`, gap:8}}>
+        {steps.map((s, i)=>{
+          const isActive = i === active, isPast = i < active;
+          return (
+            <button key={i} className="step-rail-item" onClick={()=>onPick(i)}
+              style={{textAlign:"left", padding:"14px 0 0", borderTop:`1px solid ${isActive?"var(--lime-deep)":isPast?"var(--ink-2)":"var(--line-2)"}`, marginTop:-1, transition:"border-color 250ms", background:"transparent", position:"relative", cursor:"pointer"}}>
+              {isActive && (<motion.div layoutId="step-glow" transition={SPRING.silky} style={{position:"absolute", top:-3, left:0, right:0, height:5, background:"var(--lime)", filter:"blur(8px)", opacity:0.9}}/>)}
+              <div className="num" style={{fontSize:11, fontWeight:600, color: isActive?"var(--ink-1)":isPast?"var(--ink-2)":"var(--ink-4)", letterSpacing:"0.04em", marginBottom:6}}>{String(i+1).padStart(2,"0")}</div>
+              <div style={{fontSize:13, fontWeight:isActive?600:500, color: isActive?"var(--ink-1)":isPast?"var(--ink-2)":"var(--ink-3)", lineHeight:1.3, letterSpacing:"-0.005em"}}>{s.title}</div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   METRIC CELL
+   ============================================================ */
+function MetricCell({label, text, accent, style, cls}){
+  return (
+    <div className={cls} style={{position:"relative", ...style}}>
+      <div style={{display:"flex", alignItems:"center", gap:10, marginBottom:13}}>
+        <span style={{width:7, height:7, borderRadius:2, background: accent?"var(--lime-deep)":"var(--ink-1)", boxShadow: accent?"0 0 8px var(--lime-glow)":"none"}}/>
+        <span style={{fontSize:10, textTransform:"uppercase", letterSpacing:"0.14em", color: accent?"var(--ink-2)":"var(--ink-3)", fontWeight:700}}>{label}</span>
+      </div>
+      <div style={{fontSize:17, color:"var(--ink-1)", lineHeight:1.35, letterSpacing:"-0.01em", fontWeight:500, textWrap:"pretty"}}>{text}</div>
+    </div>
+  );
+}
+
+/* ============================================================
+   STEP INFO — text + metrics + nav ("В начало" on last step)
+   ============================================================ */
+function StepInfo({step, stepIdx, totalSteps, showMetrics, showBank=true, onPrev, onNext, onRestart}){
+  const isLast = stepIdx === totalSteps - 1;
+  return (
+    <div style={{minWidth:0, paddingTop:8}}>
+      <AnimatePresence mode="wait">
+        <motion.div key={stepIdx} initial={{opacity:0, y:14}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-10}} transition={{duration:0.4, ease:EASE}}>
+          <div style={{display:"flex", alignItems:"center", gap:12, marginBottom:22, flexWrap:"wrap"}}>
+            <span className="eyebrow" style={{margin:0}}>Шаг {stepIdx+1}</span>
+            <span style={{fontSize:11, color:"var(--ink-1)", fontWeight:500, padding:"5px 12px", border:"1px solid var(--line-2)", borderRadius:999, background:"var(--surface-1)"}}>{step.zone}</span>
+          </div>
+          <h2 style={{fontSize:"clamp(32px, 4.2vw, 60px)", fontWeight:700, letterSpacing:"-0.035em", lineHeight:1.03, color:"var(--ink-1)", margin:"0 0 22px", textWrap:"balance"}}>{step.title}</h2>
+          <p style={{fontSize:17, color:"var(--ink-2)", lineHeight:1.55, margin:"0 0 34px", letterSpacing:"-0.005em", maxWidth:600, textWrap:"pretty"}}>{step.desc}</p>
+          {showMetrics && step.metricPartner && (
+            <div className="metrics-grid" style={{display:"grid", gridTemplateColumns: showBank?"1fr 1fr":"1fr", gap:0, borderTop:"1px solid var(--line-2)", borderBottom:"1px solid var(--line-2)"}}>
+              <MetricCell label="Ценность для Суши Мастера" text={step.metricPartner} accent={false} cls="m-l" style={{padding: showBank?"26px 30px 26px 0":"26px 0", borderRight: showBank?"1px solid var(--line-2)":"none"}}/>
+              {showBank && <MetricCell label="Ценность для Альфа-Банка" text={step.metricBank} accent={true} cls="m-r" style={{padding:"26px 0 26px 30px"}}/>}
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+      <div style={{display:"flex", gap:10, marginTop:34}}>
+        <button disabled={stepIdx===0} onClick={onPrev}
+          style={{display:"flex", alignItems:"center", gap:8, padding:"13px 22px", border:"1px solid var(--line-2)", borderRadius:12, fontSize:13, fontWeight:600, color: stepIdx===0?"var(--ink-4)":"var(--ink-1)", background:"var(--surface-1)", cursor: stepIdx===0?"default":"pointer", opacity: stepIdx===0?0.5:1, transition:"background 200ms"}}
+          onMouseEnter={e=>{ if(stepIdx>0) e.currentTarget.style.background="var(--surface-2)"; }}
+          onMouseLeave={e=>{ if(stepIdx>0) e.currentTarget.style.background="var(--surface-1)"; }}>
+          <Ico d={ICONS.arrow_l} size={14}/> Назад
+        </button>
+        {isLast ? (
+          <button onClick={onRestart}
+            style={{display:"flex", alignItems:"center", gap:9, padding:"13px 26px", border:"none", borderRadius:12, fontSize:13, fontWeight:700, color:"var(--ink-1)", background:"var(--lime)", cursor:"pointer", transition:"background 200ms", boxShadow:"0 8px 24px -6px var(--lime-glow)"}}
+            onMouseEnter={e=>e.currentTarget.style.background="var(--lime-deep)"}
+            onMouseLeave={e=>e.currentTarget.style.background="var(--lime)"}>
+            <Ico d={ICONS.restart} size={14}/> В начало
+          </button>
+        ) : (
+          <button onClick={onNext}
+            style={{display:"flex", alignItems:"center", gap:10, padding:"13px 26px", border:"none", borderRadius:12, fontSize:13, fontWeight:600, color:"#fff", background:"var(--ink-1)", cursor:"pointer", transition:"opacity 200ms", boxShadow:"0 8px 24px -6px rgba(10,10,10,0.3)"}}
+            onMouseEnter={e=>e.currentTarget.style.opacity="0.86"}
+            onMouseLeave={e=>e.currentTarget.style.opacity="1"}>
+            Далее <Ico d={ICONS.arrow_r} size={14}/>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   MOBILE STEP NAV
+   ============================================================ */
+function MobileStepNav({current, total, onPrev, onNext}){
+  const atStart = current === 0, atEnd = current === total - 1;
+  return (
+    <div className="mobile-step-nav" role="group" aria-label="Навигация по шагам">
+      <button type="button" aria-label="Предыдущий шаг" disabled={atStart} onClick={onPrev}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </button>
+      <div className="counter num">
+        <span style={{color:"var(--ink-1)"}}>{String(current+1).padStart(2,"0")}</span>
+        <span style={{opacity:.4,margin:"0 6px"}}>/</span>
+        <span style={{color:"var(--ink-3)"}}>{String(total).padStart(2,"0")}</span>
+      </div>
+      <button type="button" aria-label="Следующий шаг" disabled={atEnd} onClick={onNext}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </button>
+    </div>
+  );
+}
+
+/* ============================================================
+   PAY MODE TOGGLE — online / offline (capability journeys)
+   ============================================================ */
+function PayModeToggle({payMode, setPayMode}){
+  const modes = [{id:"online",label:"Онлайн"},{id:"offline",label:"Офлайн"}];
+  return (
+    <div style={{display:"flex", justifyContent:"center", marginBottom:30}}>
+      <LayoutGroup id="paymode">
+        <div style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:14, padding:4, gap:2}}>
+          {modes.map(m=>{
+            const active = m.id===payMode;
+            return (
+              <button key={m.id} onClick={()=>setPayMode(m.id)}
+                style={{position:"relative", padding:"9px 22px", borderRadius:11, fontSize:13, fontWeight:600, color: active?"#fff":"var(--ink-2)", background:"transparent", border:"none", cursor:"pointer", zIndex:1, transition:"color 200ms"}}>
+                {active && <motion.div layoutId="paymode-pill" transition={{...SPRING.snappy}} style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:11, zIndex:-1}}/>}
+                {m.label}
+              </button>
+            );
+          })}
+        </div>
+      </LayoutGroup>
+    </div>
+  );
+}
+
+/* ============================================================
+   CJM SECTION
+   ============================================================ */
+function useSwipe(onLeft, onRight){
+  const sx = useRef(null), sy = useRef(null);
+  return {
+    onTouchStart:(e)=>{ const t=e.touches[0]; sx.current=t.clientX; sy.current=t.clientY; },
+    onTouchEnd:(e)=>{
+      if(sx.current==null) return;
+      const t=e.changedTouches[0];
+      const dx=t.clientX-sx.current, dy=t.clientY-sy.current;
+      sx.current=null;
+      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)*1.4){ dx<0 ? onLeft() : onRight(); }
+    }
+  };
+}
+
+function CJMSection({activeJourney, activeStep, setActiveStep, showMetrics, payMode, setPayMode}){
+  const j = journeys[activeJourney];
+  const hasVariants = !!j.variants;
+  const steps = hasVariants ? j.variants[payMode] : j.steps;
+  const safeStep = Math.min(activeStep, steps.length - 1);
+  const step = steps[safeStep];
+  const swipe = useSwipe(
+    ()=>setActiveStep(p=>Math.min(steps.length-1, p+1)),
+    ()=>setActiveStep(p=>Math.max(0, p-1))
+  );
+  return (
+    <section className="section" style={{maxWidth:1320, margin:"0 auto", padding:"50px 40px 100px", position:"relative"}}>
+      {hasVariants && <PayModeToggle payMode={payMode} setPayMode={setPayMode}/>}
+      <ProgressRail steps={steps} active={safeStep} onPick={setActiveStep}/>
+      <div className="work-grid" style={{display:"grid", gridTemplateColumns:"minmax(340px, 0.9fr) minmax(0, 1.2fr)", gap:80, alignItems:"start"}}>
+        <div className="phone-wrap" {...swipe} style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:20}}>
+          <Phone screenKey={step.screen}/>
+          <MobileStepNav current={safeStep} total={steps.length}
+            onPrev={()=>setActiveStep(p=>Math.max(0, p-1))}
+            onNext={()=>setActiveStep(p=>Math.min(steps.length-1, p+1))}/>
+        </div>
+        <StepInfo step={step} stepIdx={safeStep} totalSteps={steps.length} showMetrics={showMetrics}
+          onPrev={()=>setActiveStep(p=>Math.max(0, p-1))}
+          onNext={()=>setActiveStep(p=>Math.min(steps.length-1, p+1))}
+          onRestart={()=>setActiveStep(0)}/>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   BENEFITS — 3 groups (Клиент / Суши Мастер / Альфа-Банк)
+   ============================================================ */
+function BenefitCard({item, index, inView, accentMode, large}){
+  const [hover, setHover] = useState(false);
+  return (
+    <motion.div
+      initial={{opacity:0, y:30}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE, delay:index*0.06}}
+      onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} className={large?"b-large":""}
+      style={{gridColumn: large?"span 2":"span 1", gridRow:"span 1", background:"var(--surface-1)", border:"1px solid var(--line-1)", borderRadius:"var(--radius-lg)", padding:large?"34px 30px":"26px 22px", position:"relative", overflow:"hidden", transition:"border-color 300ms", cursor:"default"}}>
+      <motion.div animate={{opacity:hover?1:0}} transition={{duration:0.4}} style={{position:"absolute", inset:0, pointerEvents:"none", background:"radial-gradient(circle at 80% 0%, rgba(224,31,38,0.16), transparent 60%)"}}/>
+      <motion.div animate={{opacity:hover?1:0}} transition={{duration:0.3}} style={{position:"absolute", inset:0, borderRadius:"var(--radius-lg)", pointerEvents:"none", border:"1px solid var(--lime-deep)"}}/>
+      <div style={{position:"relative", zIndex:1, height:"100%", display:"flex", flexDirection:"column"}}>
+        <div style={{display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:large?26:18, gap:16}}>
+          <motion.div animate={{y: hover?-2:0}} transition={{duration:0.3}}
+            style={{width:large?52:42, height:large?52:42, borderRadius:12, color:"var(--ink-1)", background: accentMode?"var(--lime)":"var(--surface-2)", border: accentMode?"1px solid var(--lime-deep)":"1px solid var(--line-2)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0}}>
+            <Ico d={ICONS[item.icon]} size={large?24:20}/>
+          </motion.div>
+          {item.accent && (
+            <div className="num" style={{fontSize: large?34:20, fontWeight:800, letterSpacing:"-0.03em", color:"var(--ink-1)", lineHeight:1, background: accentMode?"var(--lime)":"transparent", padding: accentMode?"4px 12px":0, borderRadius: accentMode?10:0}}>{item.accent}</div>
+          )}
+        </div>
+        <div style={{fontSize: large?22:16.5, fontWeight:600, color:"var(--ink-1)", marginBottom:9, letterSpacing:"-0.015em", lineHeight:1.2}}>{item.title}</div>
+        <div style={{fontSize: large?15:13, color:"var(--ink-3)", lineHeight:1.55, letterSpacing:"-0.005em", marginTop:"auto"}}>{item.desc}</div>
+      </div>
+    </motion.div>
+  );
+}
+function BenefitGroup({eyebrow, title, sub, items, accentMode}){
+  const [ref, inView] = useReveal(true, 0.15);
+  return (
+    <div ref={ref} style={{marginTop:72}}>
+      <motion.div initial={{opacity:0, y:20}} animate={inView?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE}} style={{marginBottom:40, maxWidth:680}}>
+        <div className="eyebrow" style={{color:"var(--ink-3)", marginBottom:13}}>{eyebrow}</div>
+        <h3 style={{fontSize:"clamp(30px, 4.4vw, 58px)", fontWeight:700, letterSpacing:"-0.035em", lineHeight:1.05, color:"var(--ink-1)", margin:"0 0 13px", textWrap:"balance"}}>{title}</h3>
+        <div style={{fontSize:15, color:"var(--ink-3)", letterSpacing:"-0.005em"}}>{sub}</div>
+      </motion.div>
+      <div className="bento-grid" style={{display:"grid", gridTemplateColumns:"repeat(3, minmax(0, 1fr))", gridAutoRows:"minmax(210px, auto)", gap:12}}>
+        {items.map((b, i)=>(<BenefitCard key={i} item={b} index={i} inView={inView} accentMode={accentMode} large={i===0}/>))}
+      </div>
+    </div>
+  );
+}
+function BenefitsSection(){
+  return (
+    <section className="section" style={{maxWidth:1320, margin:"0 auto", padding:"30px 40px 70px"}}>
+      <BenefitGroup eyebrow="01 / Клиент" title="Преимущества для клиента" sub="Что получает клиент и партнёр Суши Мастер" items={benefitsClient} accentMode={true}/>
+      <BenefitGroup eyebrow="02 / Суши Мастер" title="Преимущества для Суши Мастера" sub="Что даёт Суши Мастеру встроенный кошелёк" items={benefitsPartner} accentMode={false}/>
+      <BenefitGroup eyebrow="03 / Альфа-Банк" title="Ценность для Альфа-Банка" sub="Стратегические эффекты партнёрского канала" items={benefitsBank} accentMode={true}/>
+    </section>
+  );
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+function Footer(){
+  return (
+    <footer style={{maxWidth:1320, margin:"0 auto", padding:"40px 40px 60px", borderTop:"1px solid var(--line-1)", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:16}}>
+      <div style={{display:"flex", alignItems:"center", gap:12}}>
+        <BrandLogo height={16} color="#E01F26"/>
+        <span style={{fontSize:11, color:"var(--ink-3)", fontWeight:500, letterSpacing:"-0.005em"}}>Мастер-Кошелёк · кошелёк для Суши Мастера · интеграция через xPlatform · 2026</span>
+      </div>
+      <span style={{fontSize:11, color:"var(--ink-4)", letterSpacing:"0.04em"}}>Услугу оказывает АО «Альфа-Банк»</span>
+    </footer>
+  );
+}
+
+/* ============================================================
+   NEW GROWTH SECTION — banking layer (light, highlighted)
+   ============================================================ */
+const GROWTH=[
+  {id:"kopilka", tag:"Накопления", icon:"piggy", badge:"Только банк · % на остаток", bankOnly:true,
+   title:"Копилка на заказ",
+   painGA:"Кэшбэк-баллы и остатки клиент выводит на сторонние карты — деньги уходят в другой банк",
+   steps:[
+     {title:"Цель на большой заказ", zone:"Кошелёк", screen:"gp_kop_goal",
+      desc:"Клиент откладывает на кошелёк на крупный повод — кейтеринг на праздник, корпоратив или большой семейный сет.",
+      metricPartner:"Клиент копит на заказ внутри Мастер-Кошелька — не уходит к конкуренту.",
+      metricBank:"Целевые накопления формируют предсказуемую депозитную базу."},
+     {title:"Накопление с процентом", zone:"Кошелёк", screen:"gp_kopilka",
+      desc:"Баланс растёт за счёт округления заказов и автопополнения. На остаток начисляются проценты — то, что недоступно НКО-конкурентам.",
+      metricPartner:"Деньги клиента «зарезервированы» под заказ именно в Суши Мастере.",
+      metricBank:"Проценты на остаток удерживают средства дольше — невозможно у НКО."},
+     {title:"Оплата из копилки", zone:"Суши Мастер", screen:"gp_kop_done",
+      desc:"Цель достигнута — оплата большого заказа в один тап прямо из копилки, с повышенными баллами.",
+      metricPartner:"Гарантированная конверсия накоплений в заказ Суши Мастера.",
+      metricBank:"Транзакция и баллы — клиент в платёжном цикле банка."},
+   ]},
+  {id:"escrow", tag:"Защита предзаказа", icon:"shield", badge:"Только банк · эскроу", bankOnly:true,
+   title:"Эскроу и мгновенный возврат",
+   painGA:"При отмене или проблеме с заказом возвраты идут 7–14 дней — клиенты жалуются, деньги уходят в другой банк",
+   steps:[
+     {title:"Предоплата в эскроу", zone:"Эскроу", screen:"gp_escrow",
+      desc:"Оплата крупного банкетного заказа уходит в эскроу: деньги поступают Суши Мастеру только после доставки клиенту.",
+      metricPartner:"Снимаем страх перед предоплатой банкета — выше конверсия крупных заказов.",
+      metricBank:"Эскроу-счёт работает под банковской лицензией — недоступно НКО."},
+     {title:"Мгновенный возврат", zone:"Кошелёк", screen:"gp_esc_refund",
+      desc:"Заказ отменён или не устроил — возврат в кошелёк мгновенно. Не 7–14 дней, а секунды.",
+      metricPartner:"Мгновенный возврат закрывает главную жалобу клиентов Суши Мастера.",
+      metricBank:"Возврат остаётся в кошельке банка, а не утекает в другой банк."},
+     {title:"Деньги остаются в Суши Мастере", zone:"Суши Мастер", screen:"gp_esc_stay",
+      desc:"Возвращённые деньги уже в кошельке — и тратятся на новый заказ в Суши Мастере.",
+      metricPartner:"Деньги остаются в экосистеме Суши Мастера и конвертируются в повторный заказ.",
+      metricBank:"Удержание остатков и транзакционная активность клиента."},
+   ]},
+  {id:"credit", tag:"Оплата частями", icon:"bolt", badge:"Только банк · рассрочка", bankOnly:true,
+   title:"Оплата частями для крупных заказов",
+   painGA:"Кейтеринг и банкеты на 15 000+ ₽ — высокий чек отпугивает клиента. Часть заказов уходит к конкурентам",
+   steps:[
+     {title:"Предодобренный лимит", zone:"Кошелёк", screen:"gp_gift_wish",
+      desc:"Клиент видит в кошельке предодобренный лимит от Альфа-Банка на банкетный заказ. Без документов, по скорингу.",
+      metricPartner:"Клиент заказывает банкет сразу — без откладывания. Рост числа крупных заказов.",
+      metricBank:"Кредитная линия на банковской лицензии — недоступно НКО-конкурентам."},
+     {title:"Рассрочка при оплате", zone:"Суши Мастер", screen:"gp_gift",
+      desc:"На крупном заказе — «Оплатить частями через Мастер-Кошелёк». Срок: 3 или 6 месяцев.",
+      metricPartner:"Оплата частями снимает финансовый барьер — конверсия крупных заказов растёт.",
+      metricBank:"Кредитные продажи через сеть Суши Мастера — процентный доход банка."},
+     {title:"Погашение из кошелька", zone:"Кошелёк", screen:"gp_gift_done",
+      desc:"Ежемесячные платежи списываются из Мастер-Кошелька. Автопополнение — клиент не думает о сроках.",
+      metricPartner:"Клиент остаётся в Суши Мастере — рассрочка мотивирует заказывать снова.",
+      metricBank:"Рекуррентный кредитный поток + удержание клиента в платёжном контуре банка."},
+   ]},
+  {id:"replenish", tag:"Регулярные заказы", icon:"refresh", badge:"Рекуррентный оборот", bankOnly:false,
+   title:"Подписка на обеды и бизнес-ланчи",
+   painGA:"Клиенты и офисы заказывают обеды разово, каждый раз выбирая заново — часть заказов уходит к конкуренту",
+   steps:[
+     {title:"Настройка подписки", zone:"Кошелёк", screen:"gp_rep_setup",
+      desc:"Клиент или офис оформляет подписку на доставку: N обедов в месяц со скидкой + баллы за регулярность.",
+      metricPartner:"Регулярные заказы обедов закрепляются за Суши Мастером, а не за конкурентом.",
+      metricBank:"Рекуррентные списания — предсказуемый оборот по эквайрингу."},
+     {title:"Автосписание", zone:"Кошелёк", screen:"gp_replenish",
+      desc:"Каждый цикл — автосписание с кошелька и доставка обеда. Клиент не думает о повторном заказе.",
+      metricPartner:"Удержание и предсказуемая выручка от подписчиков Суши Мастера.",
+      metricBank:"Регулярный транзакционный поток и активные остатки на кошельке."},
+     {title:"Статус за регулярность", zone:"Кошелёк", screen:"gp_rep_spend",
+      desc:"За серию месяцев подписки копятся баллы и растёт статус в Мастер-Клубе — скидки до 20%.",
+      metricPartner:"Лояльность и рост LTV постоянных клиентов.",
+      metricBank:"Долгий жизненный цикл клиента в платёжном контуре банка."},
+   ]},
+];
+const GROWTH_RADAR=[
+  {icon:"layers", title:"Моментальные выплаты точкам сети", desc:"Моментальные выплаты точкам и франчайзи сети без банковской комиссии — выручка приходит на кошелёк сразу."},
+  {icon:"crown", title:"Статусная программа Мастер-Клуб", desc:"Уровни статуса клиента → банковские перки: повышенный кэшбэк, бесплатная рассрочка, приоритет поддержки."},
+  {icon:"link", title:"Кошелёк для корпоративных заказов", desc:"Расчётный кошелёк для офисов и компаний: заказы обедов на команду, акты, закрывающие документы, интеграция с 1С."},
+];
+
+function NewGrowth({showMetrics}){
+  const [gi, setGi] = useState(0);
+  const [gstep, setGstep] = useState(0);
+  const g = GROWTH[gi];
+  const steps = g.steps;
+  const safe = Math.min(gstep, steps.length - 1);
+  const step = steps[safe];
+  const swipe = useSwipe(
+    ()=>setGstep(p=>Math.min(steps.length-1, p+1)),
+    ()=>setGstep(p=>Math.max(0, p-1))
+  );
+  const [hRef, hIn] = useReveal(true, 0.2);
+  const [rRef, rIn] = useReveal(true, 0.15);
+  useEffect(()=>{ setGstep(0); }, [gi]);
+  return (
+    <section className="ng" style={{maxWidth:1320, margin:"0 auto", padding:"50px 40px 100px", position:"relative", overflow:"hidden", color:"var(--ink-1)"}}>
+      <div style={{position:"absolute", top:-120, right:-90, width:520, height:520, borderRadius:"50%", background:"radial-gradient(circle, rgba(224,31,38,0.26) 0%, rgba(224,31,38,0) 66%)", filter:"blur(64px)", pointerEvents:"none"}}/>
+      <div style={{maxWidth:1320, margin:"0 auto", position:"relative"}}>
+
+        <motion.div ref={hRef} initial={{opacity:0, y:24}} animate={hIn?{opacity:1, y:0}:{}} transition={{duration:0.8, ease:EASE}} style={{marginBottom:30, maxWidth:800}}>
+          <div className="eyebrow" style={{marginBottom:16}}>Точки роста · банковский слой</div>
+          <h2 style={{fontSize:"clamp(32px, 5vw, 64px)", fontWeight:800, letterSpacing:"-0.04em", lineHeight:1.0, margin:"0 0 16px", color:"var(--ink-1)"}}>
+            Новые <span className="mark-hl"><span>точки роста</span></span>
+          </h2>
+          <p style={{fontSize:16, color:"var(--ink-2)", lineHeight:1.55, letterSpacing:"-0.005em", margin:0}}>
+            Платёж и лояльность повторят все. То, что не могут НКО-конкуренты, — процентный остаток, эскроу и рассрочка. Каждая идея — отдельный сценарий, который закрывает реальную боль Суши Мастера.
+          </p>
+        </motion.div>
+
+        <LayoutGroup id="ng">
+          <div className="ng-pills" style={{display:"inline-flex", background:"var(--surface-1)", border:"1px solid var(--line-2)", borderRadius:18, padding:5, gap:2, marginBottom:36, maxWidth:"100%", flexWrap:"wrap"}}>
+            {GROWTH.map((it,i)=>{
+              const active = i===gi;
+              return (
+                <button key={it.id} onClick={()=>setGi(i)}
+                  style={{position:"relative", padding:"11px 16px", borderRadius:14, fontSize:13, fontWeight:600, letterSpacing:"-0.005em", color: active?"#fff":"var(--ink-2)", display:"flex", alignItems:"center", gap:8, zIndex:1, background:"transparent", border:"none", cursor:"pointer", transition:"color 200ms", whiteSpace:"nowrap"}}>
+                  {active && <motion.div layoutId="ng-pill" transition={{...SPRING.snappy}} style={{position:"absolute", inset:0, background:"var(--ink-1)", borderRadius:14, zIndex:-1, boxShadow:"0 8px 20px -6px rgba(10,10,10,0.30)"}}/>}
+                  <span style={{display:"inline-flex", color: active?"var(--lime)":"var(--ink-3)"}}><GIco d={GI[it.icon]} size={16}/></span>
+                  {it.tag}
+                </button>
+              );
+            })}
+          </div>
+        </LayoutGroup>
+
+        <motion.div key={g.id} initial={{opacity:0, y:12}} animate={{opacity:1, y:0}} transition={{duration:0.4, ease:EASE}}
+          style={{display:"flex", alignItems:"center", gap:14, flexWrap:"wrap", marginBottom:30}}>
+          <div style={{display:"inline-flex", alignItems:"center", gap:8, padding:"6px 13px", borderRadius:999, background: g.bankOnly?"var(--lime)":"var(--surface-1)", border: g.bankOnly?"none":"1px solid var(--line-2)"}}>
+            <span style={{width:6, height:6, borderRadius:"50%", background: g.bankOnly?"var(--ink-1)":"var(--lime-deep)"}}/>
+            <span style={{fontSize:11, fontWeight:700, letterSpacing:"0.04em", textTransform:"uppercase", color:"var(--ink-1)"}}>{g.badge}</span>
+          </div>
+          <div style={{fontSize:13.5, color:"var(--ink-2)", fontWeight:500, letterSpacing:"-0.005em"}}>
+            <span style={{color:"var(--ink-3)"}}>Боль Суши Мастера: </span>{g.painGA}
+          </div>
+        </motion.div>
+
+        <ProgressRail steps={steps} active={safe} onPick={setGstep}/>
+        <div className="work-grid" style={{display:"grid", gridTemplateColumns:"minmax(340px, 0.9fr) minmax(0, 1.2fr)", gap:80, alignItems:"start"}}>
+          <div className="phone-wrap" {...swipe} style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:20}}>
+            <Phone screenKey={step.screen}/>
+            <MobileStepNav current={safe} total={steps.length}
+              onPrev={()=>setGstep(p=>Math.max(0, p-1))}
+              onNext={()=>setGstep(p=>Math.min(steps.length-1, p+1))}/>
+          </div>
+          <StepInfo step={step} stepIdx={safe} totalSteps={steps.length} showMetrics={showMetrics} showBank={false}
+            onPrev={()=>setGstep(p=>Math.max(0, p-1))}
+            onNext={()=>setGstep(p=>Math.min(steps.length-1, p+1))}
+            onRestart={()=>setGstep(0)}/>
+        </div>
+
+        <div ref={rRef} style={{marginTop:84}}>
+          <div className="eyebrow no-mark" style={{color:"var(--ink-3)", marginBottom:24, fontWeight:600, letterSpacing:"0.16em", fontSize:10}}>Ещё на радаре</div>
+          <div className="ng-extra-grid">
+            {GROWTH_RADAR.map((c,i)=>(
+              <motion.div key={i} initial={{opacity:0, y:26}} animate={rIn?{opacity:1, y:0}:{}} transition={{duration:0.7, ease:EASE, delay:i*0.1}}
+                style={{padding:"28px 26px 30px", borderBottom:"1px solid var(--line-2)", borderRight:(i%3!==2)?"1px solid var(--line-2)":"none"}}>
+                <div style={{width:44, height:44, borderRadius:12, background:"var(--surface-1)", border:"1px solid var(--line-2)", display:"flex", alignItems:"center", justifyContent:"center", color:"var(--ink-1)", marginBottom:16}}><GIco d={GI[c.icon]} size={22}/></div>
+                <div style={{fontSize:16.5, fontWeight:600, color:"var(--ink-1)", marginBottom:8, letterSpacing:"-0.015em", lineHeight:1.2}}>{c.title}</div>
+                <div style={{fontSize:13, color:"var(--ink-3)", lineHeight:1.55}}>{c.desc}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div style={{marginTop:46, paddingTop:24, borderTop:"1px solid var(--line-2)", fontSize:13, color:"var(--ink-3)", letterSpacing:"-0.005em"}}>
+          Платёжный слой повторят все. Банковская лицензия — нет. Это ров Мастер-Кошелька: моментальные выплаты точкам сети, рассрочка на банкеты и проценты на остаток.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   APP
+   ============================================================ */
+function App(){
+  const [activeJourney, setActiveJourney] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [payMode, setPayMode] = useState("online");
+  const [showMetrics, setShowMetrics] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const [view, setView] = useState("cjm");
+  const firstRun = useRef(true);
+  useGlobalSpotlight();
+  useEffect(()=>{ setActiveStep(0); }, [activeJourney, payMode]);
+  useEffect(()=>{
+    const onScroll = ()=> setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    return ()=>window.removeEventListener('scroll', onScroll);
+  },[]);
+  useEffect(()=>{
+    if(firstRun.current){ firstRun.current = false; return; }
+    requestAnimationFrame(()=>{
+      const el = document.getElementById('view-anchor');
+      if(el) window.scrollTo({top: Math.max(0, el.offsetTop - 12), behavior:'smooth'});
+    });
+  }, [view]);
+  return (
+    <div style={{minHeight:"100vh"}}>
+      <Navbar showMetrics={showMetrics} setShowMetrics={setShowMetrics} scrolled={scrolled}/>
+      <Hero view={view} setView={setView} activeJourney={activeJourney} setActiveJourney={setActiveJourney}/>
+      <div id="view-anchor">
+        {view === "cjm" ? (
+          <React.Fragment>
+            <CJMSection activeJourney={activeJourney} activeStep={activeStep} setActiveStep={setActiveStep} showMetrics={showMetrics} payMode={payMode} setPayMode={setPayMode}/>
+            <BenefitsSection/>
+          </React.Fragment>
+        ) : (
+          <NewGrowth showMetrics={showMetrics}/>
+        )}
+      </div>
+      <Footer/>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App/>);
+</script>
+</body>
+</html>
